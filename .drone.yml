@@ -1,3 +1,4 @@
+---
 kind: pipeline
 type: docker
 name: default
@@ -7,4 +8,10 @@ steps:
   image: alpine
   commands:
   - echo hello
-  - echo world
+  - echo build
+
+- name: frontend
+  image: node
+  commands:
+  - npm install
+  - npm export
