@@ -8,14 +8,14 @@ platform:
   arch: arm64
 
 steps:
-- name: greeting
-  image: alpine
-  commands:
-  - echo hello
-  - echo build
+# - name: greeting
+#   image: alpine
+#   commands:
+#   - echo hello
+#   - echo build
 
 - name: frontend
   image: node
   commands:
   - npm install
-  - npm export
+  - npm run export
