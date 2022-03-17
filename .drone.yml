@@ -16,6 +16,15 @@ steps:
 
 - name: frontend
   image: node
+  volumes:
+  - name: dist
+    path: /dist
   commands:
   - npm install
   - npm run export
+  - cp -r ./out /dist
+
+volumes:
+- name: dist
+  host:
+    path: /var/lib/pim-out
