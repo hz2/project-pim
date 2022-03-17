@@ -18,13 +18,13 @@ steps:
   image: node
   volumes:
   - name: dist
-    path: /dist
+    path: /data/dist
   commands:
   - npm install
   - npm run export
-  - cp -r ./out /dist
+  - cp -r ./out /data/dist
 
 volumes:
 - name: dist
   host:
-    path: /var/lib/pim-out
+    path: /var/lib/drone/project-pim
