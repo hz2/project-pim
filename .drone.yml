@@ -18,11 +18,11 @@ steps:
   image: node
   volumes:
   - name: dist
-    path: /data/dist
+    path: /host-dist
   commands:
   - npm install
   - npm run export
-  - cp -r ./out /data/dist
+  - cp -r ./out /host-dist
 
 volumes:
 - name: dist
