@@ -17,15 +17,19 @@
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
+    "file-loader": "^6.2.0",
     "next": "latest",
+    "npm": "^8.5.5",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "markdown-to-jsx": "^7.1.7",
     "typescript": "latest"
   }
 }
