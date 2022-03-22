@@ -6,7 +6,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Link from '../src/Link';
 import ProTip from '../src/ProTip';
-import Copyright from '../src/Copyright';
 
 const About: NextPage = () => {
   return (
@@ -29,7 +28,6 @@ const About: NextPage = () => {
           </Button>
         </Box>
         <ProTip />
-        <Copyright />
       </Box>
     </Container>
   );

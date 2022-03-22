@@ -13,33 +13,54 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from '@/components/Copyright';
+import { Alert, Snackbar } from '@mui/material';
+import { useRouter } from 'next/router'
 
 const theme = createTheme();
 
+
 export default function SignInSide() {
+
+  const [open, setOpen] = React.useState(false);
+  const router = useRouter()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    const p = {
+      username: data.get('username'),
       password: data.get('password'),
-    });
+    }
+
+    fetch('https://app.0xc8.com/auth/login', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(p)
+    })
+      .then(r => r.json())
+      .then(res => {
+        if (res.code === 200) {
+          sessionStorage.setItem('access_token', res.data.access_token)
+          setOpen(true)
+        }
+      })
   };
 
   return (
     <ThemeProvider theme={theme}>
+      <Snackbar
+        open={open}
+        autoHideDuration={1200}
+        onClose={() => {
+          setOpen(false) ;
+          router.push('/')
+        }}
+      ><Alert severity="success" sx={{ width: '100%' }}>
+          login success!
+        </Alert>
+      </Snackbar>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -77,10 +98,11 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="username"
+                name="username"
+                autoComplete="username"
+                value={'john'}
                 autoFocus
               />
               <TextField
@@ -91,6 +113,7 @@ export default function SignInSide() {
                 label="Password"
                 type="password"
                 id="password"
+                value={'changeme'}
                 autoComplete="current-password"
               />
               <FormControlLabel
