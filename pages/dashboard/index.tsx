@@ -22,18 +22,9 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 
-function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from '@/components/Copyright';
+import HomeIcon from '@mui/icons-material/Home';
+import { Button } from '@mui/material';
 
 const drawerWidth: number = 240;
 
@@ -136,10 +127,18 @@ function DashboardContent() {
             sx={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'flex-end',
+              justifyContent: 'space-between',
               px: [1],
             }}
           >
+            <div></div>
+            <Link href="/front" color="primary">
+              <Button variant="contained" size="large">
+                <HomeIcon />
+                &nbsp;&nbsp; front
+              </Button>
+            </Link>
+
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>

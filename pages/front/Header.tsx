@@ -8,14 +8,21 @@ import Link from '@mui/material/Link';
 
 interface HeaderProps {
   sections: ReadonlyArray<{
-    title: string;
+    title?: string;
     url: string;
   }>;
-  title: string;
+  title?: string;
 }
 
 export default function Header(props: HeaderProps) {
   const { sections, title } = props;
+
+  const [hasToken, setHasToken] = React.useState(false)
+
+  React.useEffect(() => {
+    const token = sessionStorage.getItem('access_token')
+    setHasToken(Boolean(token))
+  }, [])
 
   return (
     <React.Fragment>
@@ -34,9 +41,19 @@ export default function Header(props: HeaderProps) {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <Button variant="outlined" size="small">
-          Sign up
-        </Button>
+        {
+          hasToken ?
+            <Link href="/dashboard" color="secondary">
+              <Button variant="outlined" size="small">
+                Admin
+              </Button>
+            </Link> :
+            <Link href="/sign-in" color="secondary">
+              <Button variant="outlined" size="small">
+                Sign in
+              </Button>
+            </Link>
+        }
       </Toolbar>
       <Toolbar
         component="nav"

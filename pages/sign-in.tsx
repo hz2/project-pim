@@ -55,7 +55,7 @@ export default function SignInSide() {
         autoHideDuration={1200}
         onClose={() => {
           setOpen(false) ;
-          router.push('/')
+          router.push('/dashboard')
         }}
       ><Alert severity="success" sx={{ width: '100%' }}>
           login success!
