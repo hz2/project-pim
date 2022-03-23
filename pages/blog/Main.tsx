@@ -27,7 +27,7 @@ export default function Main(props: MainProps) {
         {title}
       </Typography>
       <Divider />
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <Markdown className="markdown" key={post.substring(0, 40)}>
           {post}
         </Markdown>

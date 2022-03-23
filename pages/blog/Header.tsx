@@ -43,7 +43,7 @@ export default function Header(props: HeaderProps) {
         variant="dense"
         sx={{ justifyContent: 'space-between', overflowX: 'auto' }}
       >
-        {sections.map((section) => (
+        {sections?.map((section) => (
           <Link
             color="inherit"
             noWrap
