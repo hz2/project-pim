@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     if (!token) {
       router.push('/sign-in')
     } else {
-      router.push('/dashboard')
+      router.push('/front')
     }
   }, [])
   return (
