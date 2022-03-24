@@ -5,11 +5,12 @@ import MuiLink from '@mui/material/Link';
 export default function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center"  {...props}>
-      {'© '}
+      <span>© {new Date().getFullYear()}-present</span>
+      <span> </span>
       <MuiLink color="inherit" href="/">
         0xc8.com
       </MuiLink>
-      <span> {new Date().getFullYear()}</span>
+      <span> / pim system</span>
     </Typography>
   );
 }
