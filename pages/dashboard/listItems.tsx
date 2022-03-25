@@ -9,6 +9,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import Link from 'next/link';
 
 export const mainListItems = (
   <React.Fragment>
@@ -68,6 +69,14 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
     </ListItemButton>
+    <Link href="/dashboard/management/webservice/feedback">
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Feedback" />
+      </ListItemButton>
+    </Link>
   </React.Fragment>
 );
 
