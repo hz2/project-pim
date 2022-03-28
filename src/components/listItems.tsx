@@ -71,12 +71,20 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
     </ListItemButton>
-    <Link href="/dashboard/management/webservice/feedback">
+    <Link href="/management/webservice/feedback">
       <ListItemButton>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
         <ListItemText primary="Feedback" />
+      </ListItemButton>
+    </Link>
+    <Link href="/management/menu/menu">
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Menu" />
       </ListItemButton>
     </Link>
   </React.Fragment>

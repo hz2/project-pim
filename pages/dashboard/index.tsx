@@ -4,12 +4,7 @@ import Paper from '@mui/material/Paper';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
-
-import Copyright from '@/components/Copyright';
-
 import Layout from '@/components/DashboardLayout'
-
-
 
 function DashboardContent() {
   return (
@@ -48,7 +43,6 @@ function DashboardContent() {
           </Paper>
         </Grid>
       </Grid>
-      <Copyright sx={{ pt: 4 }} />
     </Layout>
   );
 }

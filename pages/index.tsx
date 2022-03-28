@@ -8,12 +8,12 @@ const Home: NextPage = () => {
   const router = useRouter()
 
   useEffect(() => {
-    const token = sessionStorage.getItem('access_token')
-    if (!token) {
-      router.push('/sign-in')
-    } else {
+    // const token = sessionStorage.getItem('access_token')
+    // if (!token) {
+    //   router.push('/sign-in')
+    // } else {
       router.push('/front')
-    }
+    // }
   }, [])
   return (
     <Container >
