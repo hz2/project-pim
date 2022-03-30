@@ -82,11 +82,7 @@ const sidebar = {
 const theme = createTheme();
 
 export default function Blog() {
-
-
-
-  _req('qqqq')
-console.log('qqqq',  process.env.NEXT_PUBLIC_BASE_URL );
+  // _req('/qqqq', {})
 
   return (
     <ThemeProvider theme={theme}>
