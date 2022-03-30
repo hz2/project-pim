@@ -6,7 +6,7 @@ interface IForm {
     [k: string]: string | number | File
 }
 
-const baseUrl = 'https://app.0xc8.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 export const _req = (url: string, data?: IForm, cfg?: Request): Promise<Response> => new Promise((resolve, reject) => {
     const headerDefault = {
         'content-type': 'application/json'

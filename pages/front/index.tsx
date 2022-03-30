@@ -15,6 +15,7 @@ import Footer from './Footer';
 import post1 from './blog-post.1.md';
 import post2 from './blog-post.2.md';
 import post3 from './blog-post.3.md';
+import { _req } from '@/utils/service';
 
 const sections = [
   { title: 'Technology', url: '#' },
@@ -81,6 +82,12 @@ const sidebar = {
 const theme = createTheme();
 
 export default function Blog() {
+
+
+
+  _req('qqqq')
+console.log('qqqq',  process.env.NEXT_PUBLIC_BASE_URL );
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
