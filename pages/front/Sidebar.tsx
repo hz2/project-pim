@@ -10,6 +10,10 @@ interface SidebarProps {
     url: string;
     title: string;
   }>;
+  menulinks: ReadonlyArray<{
+    url: string;
+    title: string;
+  }>;
   description: string;
   social: ReadonlyArray<{
     icon: React.ElementType;
@@ -20,7 +24,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar(props: SidebarProps) {
-  const { archives, description, social, title } = props;
+  const { archives, menulinks, description, social, title } = props;
 
   return (
     <Grid item xs={12} md={4}>
@@ -36,6 +40,14 @@ export default function Sidebar(props: SidebarProps) {
       {archives?.map((archive) => (
         <Link display="block" variant="body1" href={archive.url} key={archive.title}>
           {archive.title}
+        </Link>
+      ))}
+      <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
+        Services
+      </Typography>
+      {menulinks?.map((link) => (
+        <Link display="block" variant="body1" href={link.url} key={link.title} target="_blank">
+          {link.title}
         </Link>
       ))}
       <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
