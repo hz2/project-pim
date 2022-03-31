@@ -5,14 +5,14 @@ import { useEffect } from 'react';
 import { Backdrop, CircularProgress, Container } from '@mui/material';
 
 const Home: NextPage = () => {
-  const router = useRouter()
+  // const router = useRouter()
 
   useEffect(() => {
     // const token = sessionStorage.getItem('access_token')
     // if (!token) {
     //   router.push('/sign-in')
     // } else {
-      router.push('/front')
+      // router.push('/front')
     // }
   }, [])
   return (
