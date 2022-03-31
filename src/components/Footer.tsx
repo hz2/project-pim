@@ -6,12 +6,12 @@ import Link from '@mui/material/Link';
 import Copyright from '@/components/Copyright';
 
 interface FooterProps {
-  description: string;
-  title: string;
+  description?: string;
+  title?: string;
 }
 
 export default function Footer(props: FooterProps) {
-  const { description, title } = props;
+  const { description = '', title = '' } = props;
 
   return (
     <Box component="footer" sx={{ bgcolor: 'background.paper', py: 6 }}>

@@ -13,7 +13,7 @@ import Link from 'next/link';
 
 export const mainListItems = (
   <React.Fragment>
-    <Link href="/dashboard/">
+    <Link href="/dashboard/" passHref={true}>
       <ListItemButton>
         <ListItemIcon>
           <DashboardIcon />
@@ -71,7 +71,7 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
     </ListItemButton>
-    <Link href="/management/webservice/feedback">
+    <Link href="/management/webservice/feedback" passHref={true}>
       <ListItemButton>
         <ListItemIcon>
           <AssignmentIcon />
@@ -79,7 +79,7 @@ export const secondaryListItems = (
         <ListItemText primary="Feedback" />
       </ListItemButton>
     </Link>
-    <Link href="/management/menu/menu">
+    <Link href="/management/menu/menu" passHref={true}>
       <ListItemButton>
         <ListItemIcon>
           <AssignmentIcon />
@@ -90,6 +90,8 @@ export const secondaryListItems = (
   </React.Fragment>
 );
 
-export default () => {
+const ListItems = () => {
   return "Show page working ! ";
 }
+
+export default ListItems
