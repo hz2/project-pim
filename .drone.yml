@@ -22,7 +22,7 @@ steps:
   commands:
   - npm install
   - npm run export
-  - cp -r ./out /host-dist
+  - rm -rf /host-dist/* && cp -r ./out /host-dist
 
 volumes:
 - name: dist
