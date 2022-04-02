@@ -14,6 +14,9 @@ steps:
 #   - echo hello
 #   - echo build
 
+trigger:
+  branch:
+  - main
 - name: frontend
   image: node
   volumes:
