@@ -22,7 +22,11 @@ steps:
   commands:
   - npm install
   - npm run export
-  - rm -rf /host-dist/* && cp -r ./out /host-dist
+  - rm -rf /host-dist/* && cp -r ./out/* /host-dist
+
+trigger:
+  branch:
+  - main
 
 volumes:
 - name: dist
