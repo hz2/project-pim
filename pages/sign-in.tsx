@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '@/components/Copyright';
 import { Alert, Snackbar } from '@mui/material';
 import { useRouter } from 'next/router'
+import { IData, IForm, _req } from '@/utils/service';
 
 const theme = createTheme();
 
@@ -28,23 +29,17 @@ export default function SignInSide() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const p = {
-      username: data.get('username'),
-      password: data.get('password'),
+      email: data.get('username') || '',
+      password: data.get('password') || '',
     }
-
-    fetch('https://app.0xc8.com/auth/login', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(p)
-    })
-      .then(r => r.json())
-      .then(res => {
-        if (res.code === 200) {
-          sessionStorage.setItem('access_token', res.data.access_token)
-          setOpen(true)
-        }
+    if (!p.email || !p.password) {
+      console.log('空');
+      return
+    }
+    _req('/api/login', p)
+      .then((res: IData<IForm>) => {
+        sessionStorage.setItem('access_token', String(res.access_token))
+        setOpen(true)
       })
   };
 
@@ -54,7 +49,7 @@ export default function SignInSide() {
         open={open}
         autoHideDuration={1200}
         onClose={() => {
-          setOpen(false) ;
+          setOpen(false);
           router.push('/dashboard')
         }}
       ><Alert severity="success" sx={{ width: '100%' }}>
@@ -102,7 +97,6 @@ export default function SignInSide() {
                 label="username"
                 name="username"
                 autoComplete="username"
-                value={'john'}
                 autoFocus
               />
               <TextField
@@ -113,7 +107,6 @@ export default function SignInSide() {
                 label="Password"
                 type="password"
                 id="password"
-                value={'changeme'}
                 autoComplete="current-password"
               />
               <FormControlLabel

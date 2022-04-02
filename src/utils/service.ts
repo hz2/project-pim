@@ -2,12 +2,13 @@
 
 
 
-interface IForm {
-    [k: string]: string | number | File
+export interface IForm {
+    [k: string]: string | number | boolean | File
 }
+export type IData<Type> = Type
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-export const _req = (url: string, data?: IForm, cfg?: Request): Promise<Response> => new Promise((resolve, reject) => {
+export const _req = (url: string, data?: IForm, cfg?: Request): Promise<IData<IForm | IForm[]>> => new Promise((resolve, reject) => {
     const headerDefault = {
         'content-type': 'application/json'
     }
@@ -24,8 +25,8 @@ export const _req = (url: string, data?: IForm, cfg?: Request): Promise<Response
         ...config,
     })
         .then(r => r.json())
-        .then(res => {
-            const { data, code, message }: { data: Response, code: number, message: string } = res
+        .then((res) => {
+            const { data, code, message }: { data: IData<IForm | IForm[]>, code: number, message: string } = res
             if (code === 200) {
                 resolve(data)
             } else if (code === 401) {
