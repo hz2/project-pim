@@ -37,9 +37,11 @@ export default function SignInSide() {
       return
     }
     _req('/api/login', p)
-      .then((res: IData<IForm>) => {
-        sessionStorage.setItem('access_token', String(res.access_token))
-        setOpen(true)
+      .then((res) => {
+        if ( !Array.isArray(res) ) {
+          sessionStorage.setItem('access_token', String(res?.access_token))
+          setOpen(true)
+        }
       })
   };
 
