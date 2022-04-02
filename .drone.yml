@@ -14,9 +14,6 @@ steps:
 #   - echo hello
 #   - echo build
 
-trigger:
-  branch:
-  - main
 - name: frontend
   image: node
   volumes:
@@ -26,6 +23,10 @@ trigger:
   - npm install
   - npm run export
   - rm -rf /host-dist/* && cp -r ./out /host-dist
+
+trigger:
+  branch:
+  - main
 
 volumes:
 - name: dist
