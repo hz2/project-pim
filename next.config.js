@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  trailingSlash: false,
+  trailingSlash: true,
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
