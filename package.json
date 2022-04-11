@@ -1,5 +1,5 @@
 {
-  "name": "projetc-pim",
+  "name": "project-pim",
   "version": "5.0.0",
   "private": true,
   "scripts": {
@@ -17,21 +17,20 @@
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
-    "file-loader": "^6.2.0",
+    "file-loader": "latest",
     "next": "latest",
-    "npm": "^8.5.5",
-    "raw-loader": "^4.0.2",
+    "raw-loader": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "recharts": "^2.1.9",
-    "url-loader": "^4.1.1"
+    "recharts": "latest",
+    "url-loader": "latest"
   },
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
-    "markdown-to-jsx": "^7.1.7",
+    "markdown-to-jsx": "latest",
     "typescript": "latest"
   }
 }
