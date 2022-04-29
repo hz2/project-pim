@@ -15,12 +15,15 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { mainListItems, secondaryListItems } from './listItems';
 
 
 import Copyright from '@/components/Copyright';
 import HomeIcon from '@mui/icons-material/Home';
-import { Button } from '@mui/material';
+import { Avatar, Button, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
+import { _req } from '@/utils/service';
+import { useRouter } from 'next/router';
 
 const drawerWidth: number = 240;
 
@@ -78,10 +81,46 @@ export interface LayoutProps {
     children: React.ReactNode
 }
 
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
 export default function Layout({ children }: LayoutProps) {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
+    };
+
+
+    const router = useRouter()
+
+    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+
+    const logoutFn = () => {
+        _req('/api/logout',)
+            .then(() => {
+                sessionStorage.removeItem('access_token')
+                router.push('/')
+            })
+
+    }
+
+    const handleCloseUserMenu = (_e: React.MouseEvent<HTMLLIElement, MouseEvent>, x: string) => {
+        if (x === 'Logout') {
+            logoutFn()
+        }
+
+        setAnchorElUser(null);
     };
 
     return (
@@ -115,11 +154,45 @@ export default function Layout({ children }: LayoutProps) {
                         >
                             Dashboard
                         </Typography>
-                        <IconButton color="inherit">
+                        <IconButton color="inherit" sx={{ mr: 2 }}>
                             <Badge badgeContent={4} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
+
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Tooltip title="Open settings">
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                sx={{ mt: '45px' }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseNavMenu}
+                                onClick={()=>setAnchorElUser(null)}
+                            >
+                                {settings.map((x) => (
+                                    <MenuItem key={x} onClick={e => handleCloseUserMenu(e, x)}>
+                                        <ListItemIcon>
+                                            <LogoutIcon fontSize="small" />
+                                        </ListItemIcon>
+                                        <Typography textAlign="center">{x}</Typography>
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Box>
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>
