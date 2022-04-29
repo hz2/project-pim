@@ -28,6 +28,7 @@ const useStyle = makeStyles({
         cursor: 'pointer',
         textAlign: 'center',
         display: 'flex',
+        position: 'relative',
         '&:hover p,&:hover svg,& img': {
             opacity: 1,
         },
