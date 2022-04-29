@@ -75,6 +75,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
+const BadgeContentSpan = styled('span')(({ theme }) => ({
+    width: 8,
+    height: 8,
+    borderRadius: '50%',
+    backgroundColor: theme.palette.success.main,
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`
+}))
+
+
 const mdTheme = createTheme();
 
 export interface LayoutProps {
@@ -163,7 +172,19 @@ export default function Layout({ children }: LayoutProps) {
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+
+                                    <Badge
+                                        overlap='circular'
+                                        sx={{ ml: 2, cursor: 'pointer' }}
+                                        badgeContent={<BadgeContentSpan />}
+                                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                    >
+                                        <Avatar
+                                            alt='John Doe'
+                                            sx={{ width: 40, height: 40 }}
+                                            src='/images/avatars/1.png'
+                                        />
+                                    </Badge>
                                 </IconButton>
                             </Tooltip>
                             <Menu
@@ -181,8 +202,12 @@ export default function Layout({ children }: LayoutProps) {
                                 }}
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseNavMenu}
-                                onClick={()=>setAnchorElUser(null)}
+                                onClick={() => setAnchorElUser(null)}
                             >
+                                <MenuItem>
+                                    <Typography textAlign="center">admin </Typography>
+                                </MenuItem>
+                                <Divider />
                                 {settings.map((x) => (
                                     <MenuItem key={x} onClick={e => handleCloseUserMenu(e, x)}>
                                         <ListItemIcon>
