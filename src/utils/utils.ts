@@ -12,4 +12,14 @@ export const formToObj = (form: FormData) => {
     return obj
 }
 
+
+
+export const imgLoader = ({ src, width, quality }: {
+    src: string;
+    width: number;
+    quality?: number;
+}) => {
+    return src
+}
+
 export { }
