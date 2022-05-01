@@ -12,6 +12,7 @@ import { _get, IForm, _upload } from '@/utils/service';
 
   const fileUploadProp: FileUploadProps = {
     accept: 'image/*',
+    imageButton: true,
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
         if (
             event.target.files !== null &&

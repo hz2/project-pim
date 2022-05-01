@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles';
 import { Box, Typography } from '@mui/material';
+import Image from 'next/image'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import clsx from 'clsx'
 
@@ -67,11 +68,11 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     imageButton = false,
     hoverLabel = 'Click or drag to upload file',
     dropLabel = 'Drop file here',
-    width = '600px',
-    height = '100px',
+    width = '400px',
+    height = '400px',
     backgroundColor = '#fff',
     image: {
-        url = 'FileUploadDefaultImage',
+        url = '/',
         imageStyle = {
             height: 'inherit',
         },
@@ -118,8 +119,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (imageButton && event.target.files[0]) {
-            setImageUrl(URL.createObjectURL(event.target.files[0]))
+        const files = event?.target?.files || []
+        if (imageButton && files.length) {
+            setImageUrl(URL.createObjectURL(files[0]))
         }
 
         onChange(event)
@@ -146,12 +148,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                     bgcolor={backgroundColor}
                     className={classes.noMouseEvent}
                 >
-                    {imageButton && (
+                    {imageButton  && imageUrl && (
                         <Box position="absolute" height={height} width={width}>
-                            <img
+                            <Image
                                 alt="file upload"
-                                src={imageUrl}
-                                style={imageStyle}
+                                objectFit='cover'
+                                src={imageUrl} height={height} width={width}
                             />
                         </Box>
                     )}
