@@ -14,7 +14,7 @@ const Home: NextPage = () => {
     // } else {
       router.push('/front')
     // }
-  }, [])
+  }, [router])
   return (
     <Container >
       <Backdrop

@@ -5,24 +5,19 @@
 export interface IForm {
     [k: string]: string | number | boolean | File
 }
+
 export type IData<Type> = Type
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-export const _req = (url: string, data?: IForm, cfg?: Request): Promise<IData<IForm | IForm[]>> => new Promise((resolve, reject) => {
-    const headerDefault = {
-        'content-type': 'application/json'
-    }
+
+const _base = (url: string, config: RequestInit): Promise<IData<IForm | IForm[]>> => new Promise((resolve, reject) => {
     const token = sessionStorage.getItem('access_token')
-    const config = Object.assign({
-        method: 'POST',
-        body: JSON.stringify(data)
-    }, cfg, {
-        headers: Object.assign(headerDefault, cfg?.headers || {}, token ? {
-            Authorization: 'Bearer ' + token
-        } : {})
-    })
+    const auth = token ? {
+        Authorization: 'Bearer ' + token
+    } : {}
     fetch(baseUrl + url, {
         ...config,
+        headers: Object.assign(config?.headers || {}, auth)
     })
         .then(r => r.json())
         .then((res) => {
@@ -37,5 +32,20 @@ export const _req = (url: string, data?: IForm, cfg?: Request): Promise<IData<IF
         })
 })
 
+export const _req = (url: string, data?: IForm, cfg?: RequestInit) => _base(url, {
+    body: JSON.stringify(data),
+    method: cfg?.method || "POST",
+    headers: {
+        'content-type': 'application/json'
+    },
+    ...cfg
+})
 
-export const _get = (url: string, data?: IForm, cfg?: Request) => _req(url, data, Object.assign({ method: 'GET' }, cfg))
+export const _get = (url: string, data?: IForm, cfg?: RequestInit) => _req(url, data, {
+    method: "GET"
+})
+
+export const _upload = (url: string, data: FormData) => _base(url, {
+    method: 'POST',
+    body: data
+})
