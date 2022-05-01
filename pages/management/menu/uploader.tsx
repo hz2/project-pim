@@ -4,6 +4,7 @@ import { Box, Typography } from '@mui/material';
 import Image from 'next/image'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import clsx from 'clsx'
+import { imgLoader } from '@/utils/utils';
 
 export type FileUploadProps = {
     imageButton?: boolean
@@ -148,12 +149,15 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                     bgcolor={backgroundColor}
                     className={classes.noMouseEvent}
                 >
-                    {imageButton  && imageUrl && (
+                    {imageButton && imageUrl && (
                         <Box position="absolute" height={height} width={width}>
                             <Image
+                                loader={imgLoader}
                                 alt="file upload"
                                 objectFit='cover'
-                                src={imageUrl} height={height} width={width}
+                                src={imageUrl}
+                                height={height}
+                                width={width}
                             />
                         </Box>
                     )}
@@ -175,3 +179,5 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         </>
     )
 }
+
+export default FileUpload
