@@ -25,29 +25,29 @@ export default function SignInSide() {
 
   const [open, setOpen] = React.useState(false);
 
-const { _msg } = useMsg()
+// const { _msg } = useMsg()
 
   const router = useRouter()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    _msg('qqqq')
+    // _msg('qqqq')
     
-    // event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // const p = {
-    //   email: data.get('username') || '',
-    //   password: data.get('password') || '',
-    // }
-    // if (!p.email || !p.password) {
-    //   console.log('空');
-    //   return
-    // }
-    // _req('/api/login', p)
-    //   .then((res) => {
-    //     if ( !Array.isArray(res) ) {
-    //       sessionStorage.setItem('access_token', String(res?.access_token))
-    //       setOpen(true)
-    //     }
-    //   })
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const p = {
+      email: data.get('username') || '',
+      password: data.get('password') || '',
+    }
+    if (!p.email || !p.password) {
+      console.log('空');
+      return
+    }
+    _req('/api/admin/login', p)
+      .then((res) => {
+        if ( !Array.isArray(res) ) {
+          sessionStorage.setItem('access_token', String(res?.access_token))
+          setOpen(true)
+        }
+      })
   };
 
   return (
