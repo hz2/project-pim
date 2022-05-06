@@ -116,7 +116,7 @@ export default function Layout({ children }: LayoutProps) {
     };
 
     const logoutFn = () => {
-        _req('/api/logout',)
+        _req('/api/admin/logout',)
             .then(() => {
                 sessionStorage.removeItem('access_token')
                 router.push('/')
