@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
-import { ThemeProvider } from '@mui/material/styles';
+import PageProvider from '@/components/PageProvider';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../src/theme';
@@ -23,11 +23,11 @@ export default function MyApp(props: MyAppProps) {
         <link rel="shortcut icon" href="/favicon.ico" />
         <title>pim system</title>
       </Head>
-      <ThemeProvider theme={theme}>
+      <PageProvider>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Component {...pageProps} />
-      </ThemeProvider>
+      </PageProvider>
     </CacheProvider>
   );
 }

@@ -6,8 +6,8 @@ import { Alert, Snackbar } from '@mui/material';
 export function useMsg() {
     const [open, setOpen] = React.useState(false);
 
-    return (
-        <Snackbar
+
+    <Snackbar
             open={open}
             autoHideDuration={1200}
             onClose={() => {

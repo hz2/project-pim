@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import PageProvider from '@/components/PageProvider';
 import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedPost from './FeaturedPost';
@@ -84,13 +84,12 @@ const sidebar = {
   ],
 };
 
-const theme = createTheme();
 
 export default function Blog() {
   // _req('/qqqq', {})
 
   return (
-    <ThemeProvider theme={theme}>
+    <PageProvider>
       <CssBaseline />
       <Container maxWidth="lg">
         <Header sections={sections} />
@@ -117,6 +116,6 @@ export default function Blog() {
         title="Footer"
         description="Something here to give the footer a purpose!"
       />
-    </ThemeProvider>
+    </PageProvider>
   );
 }
