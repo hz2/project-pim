@@ -14,7 +14,6 @@ import Typography from '@mui/material/Typography';
 import PageProvider from '@/components/PageProvider';
 
 import Copyright from '@/components/Copyright';
-import { Alert, Snackbar } from '@mui/material';
 import { useRouter } from 'next/router'
 import { IData, IForm, _req } from '@/utils/service';
 
@@ -22,7 +21,6 @@ import { IData, IForm, _req } from '@/utils/service';
 
 export default function SignInSide() {
 
-  const [open, setOpen] = React.useState(false);
 
 // const { _msg } = useMsg()
 
@@ -44,24 +42,12 @@ export default function SignInSide() {
       .then((res) => {
         if ( !Array.isArray(res) ) {
           sessionStorage.setItem('access_token', String(res?.access_token))
-          setOpen(true)
         }
       })
   };
 
   return (
     <PageProvider>
-      <Snackbar
-        open={open}
-        autoHideDuration={1200}
-        onClose={() => {
-          setOpen(false);
-          router.push('/dashboard')
-        }}
-      ><Alert severity="success" sx={{ width: '100%' }}>
-          login success!
-        </Alert>
-      </Snackbar>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
