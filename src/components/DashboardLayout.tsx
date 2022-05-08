@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+import PageProvider from '@/components/PageProvider';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -83,9 +84,6 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`
 }))
 
-
-const mdTheme = createTheme();
-
 export interface LayoutProps {
     children: React.ReactNode
 }
@@ -116,7 +114,7 @@ export default function Layout({ children }: LayoutProps) {
     };
 
     const logoutFn = () => {
-        _req('/api/logout',)
+        _req('/api/admin/logout',)
             .then(() => {
                 sessionStorage.removeItem('access_token')
                 router.push('/')
@@ -133,7 +131,7 @@ export default function Layout({ children }: LayoutProps) {
     };
 
     return (
-        <ThemeProvider theme={mdTheme}>
+        <PageProvider>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar position="absolute" open={open}>
@@ -267,6 +265,6 @@ export default function Layout({ children }: LayoutProps) {
                     </Container>
                 </Box>
             </Box>
-        </ThemeProvider>
+        </PageProvider>
     );
 }
