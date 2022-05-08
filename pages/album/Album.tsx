@@ -14,16 +14,15 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import PageProvider from '@/components/PageProvider';
 import Footer from '@/components/Footer';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-const theme = createTheme();
 
 export default function Album() {
   return (
-    <ThemeProvider theme={theme}>
+    <PageProvider>
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
@@ -105,6 +104,6 @@ export default function Album() {
         </Container>
       </main>
       <Footer />
-    </ThemeProvider>
+    </PageProvider>
   );
 }
