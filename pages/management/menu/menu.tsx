@@ -1,16 +1,16 @@
 import * as React from 'react';
 import Layout from '@/components/DashboardLayout'
-import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link } from '@mui/material';
+import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button } from '@mui/material';
 import { Title } from '@mui/icons-material';
 import AddMenu from "./addMenu";
 import { FileUpload, FileUploadProps } from "./uploader";
-import { _get, IForm, _upload } from '@/utils/service';
+import { _get, _delete, IForm, _upload } from '@/utils/service';
 
 
 
 
 
-  const fileUploadProp: FileUploadProps = {
+const fileUploadProp: FileUploadProps = {
     accept: 'image/*',
     imageButton: true,
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,23 +19,23 @@ import { _get, IForm, _upload } from '@/utils/service';
             event.target?.files?.length > 0
         ) {
 
-            const file = event.target.files 
+            const file = event.target.files
             console.log(`Saving ${event.target.value}`, file)
 
             const formData = new FormData()
-            formData.append("image",file[0]);
+            formData.append("image", file[0]);
 
-            _upload('/file-upload/single',formData).then(r=> {
-                console.log('qqq',r );
-                
+            _upload('/file-upload/single', formData).then(r => {
+                console.log('qqq', r);
+
             })
         }
     },
     onDrop: (event: React.DragEvent<HTMLElement>) => {
         console.log(`Drop ${event.dataTransfer.files[0].name}`)
     },
-  }
-  
+}
+
 
 
 
@@ -52,6 +52,14 @@ export default function Page() {
                 setList(res)
             }
         })
+    }
+
+    const deleteMenu = (id: string) => {
+        _delete('/sys/menu/' + id).then(res => {
+            console.log('r', res);
+            getList()
+        })
+
     }
 
     React.useEffect(() => {
@@ -74,7 +82,7 @@ export default function Page() {
                                     <TableCell>Name</TableCell>
                                     <TableCell>Ship To</TableCell>
                                     <TableCell>Payment Method</TableCell>
-                                    <TableCell align="right">Sale Amount</TableCell>
+                                    <TableCell align="right">delete</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -84,7 +92,9 @@ export default function Page() {
                                         <TableCell>{row.path}</TableCell>
                                         <TableCell>{row.component}</TableCell>
                                         <TableCell>{row.icon}</TableCell>
-                                        <TableCell align="right">{`$${row.isActive}`}</TableCell>
+                                        <TableCell align="right">
+                                            <Button color="error" onClick={() => deleteMenu(String(row.id))}>delete</Button>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -95,6 +105,6 @@ export default function Page() {
                     </Paper>
                 </Grid>
             </Grid>
-        </Layout>
+        </Layout >
     );
 }

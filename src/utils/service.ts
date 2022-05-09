@@ -45,6 +45,10 @@ export const _get = (url: string, data?: IForm, cfg?: RequestInit) => _req(url, 
     method: "GET"
 })
 
+export const _delete = (url: string, data?: IForm, cfg?: RequestInit) => _req(url, data, {
+    method: "DELETE"
+})
+
 export const _upload = (url: string, data: FormData) => _base(url, {
     method: 'POST',
     body: data
