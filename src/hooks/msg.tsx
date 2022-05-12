@@ -7,7 +7,7 @@ export function useMsg() {
     const [open, setOpen] = React.useState(false);
 
 
-    <Snackbar
+    return (<Snackbar
             open={open}
             autoHideDuration={1200}
             onClose={() => {
