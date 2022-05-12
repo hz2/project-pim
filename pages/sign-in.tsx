@@ -41,6 +41,7 @@ export default function SignInSide() {
     _req('/api/admin/login', p)
       .then((res) => {
         if ( !Array.isArray(res) ) {
+          router.push('/dashboard')
           sessionStorage.setItem('access_token', String(res?.access_token))
         }
       })

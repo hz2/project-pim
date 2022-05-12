@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     // if (!token) {
     //   router.push('/sign-in')
     // } else {
-      router.push('/front')
+    router.push('/front')
     // }
   }, [router])
   return (
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={true}
-        onClick={()=>false}
+        onClick={() => false}
       >
         <CircularProgress color="inherit" />
       </Backdrop>

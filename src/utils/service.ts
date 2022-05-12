@@ -1,6 +1,7 @@
 
 
 
+import Router from 'next/router'
 
 export interface IForm {
     [k: string]: string | number | boolean | File
@@ -26,6 +27,7 @@ const _base = (url: string, config: RequestInit): Promise<IData<IForm | IForm[]>
                 resolve(data)
             } else if (code === 401) {
                 console.log('Unauthorized');
+                Router.push('/sign-in')
             } else {
                 console.log('message: ', message);
             }
