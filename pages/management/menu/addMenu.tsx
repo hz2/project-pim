@@ -15,7 +15,7 @@ export default function Checkout() {
         const data = formToObj(form)
         console.log('e', data);
 
-        _req('/menu', data).then(res => {
+        _req('/sys/menu', data).then(res => {
             console.log('r ');
 
         })
