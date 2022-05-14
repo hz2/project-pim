@@ -6,8 +6,7 @@ import AddMenu from "./addMenu";
 import { FileUpload, FileUploadProps } from "./uploader";
 import { _get, _delete, IForm, _upload } from '@/utils/service';
 
-
-
+import { UserContext } from "@/components/PageProvider"
 
 
 const fileUploadProp: FileUploadProps = {
@@ -66,8 +65,16 @@ export default function Page() {
         getList()
     }, [])
 
+    const { dispatch } = React.useContext(UserContext)
+
     return (
         <Layout>
+            <Button onClick={() => dispatch({ type: "open_msg", data: '1111' })}>
+                qqqwww
+            </Button>
+            <br />
+            <br />
+            <br />
             <FileUpload {...fileUploadProp} />
             <AddMenu />
             <Grid container spacing={3}>
