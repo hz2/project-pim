@@ -1,29 +1,35 @@
 import * as React from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from '@/src/theme';
+import theme from '@/theme';
 import { Alert, Snackbar } from '@mui/material';
 
+import { reducer, initialState, ContextType, defaultDispatch } from "@/reducer/reducer"
 
+
+
+export const UserContext: React.Context<ContextType> = React.createContext({
+    state: initialState,
+    dispatch: defaultDispatch
+})
 
 export interface PageProps {
     children: React.ReactNode
 }
 
 export default function PageProvider({ children }: PageProps) {
-    const [open, setOpen] = React.useState(false);
+    const [state, dispatch] = React.useReducer(reducer, initialState);
     return (<>
         <ThemeProvider theme={theme}>
-            {children}
+            <UserContext.Provider value={{ state, dispatch }}>
+                {children}
+            </UserContext.Provider>
         </ThemeProvider>
         <Snackbar
-            open={open}
+            open={state.msgStatus}
             autoHideDuration={1200}
-            onClose={() => {
-                setOpen(false);
-            }}
-        ><Alert severity="success" sx={{ width: '100%' }}>
-                login success!
-            </Alert>
+            onClose={() => dispatch({ type: "close_msg" })}
+        >
+            <Alert severity="success" sx={{ width: '100%' }}>{state.msgText}</Alert>
         </Snackbar>
     </>)
 }
