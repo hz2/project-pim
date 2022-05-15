@@ -59,7 +59,7 @@ export default function Page() {
             console.log('r', res);
             getList()
         }).catch(e => {
-            dispatch({ type: "open_msg", data: e.message || '失败' })
+            dispatch({ type: "open_err", data: e.message || '失败' })
         })
 
     }
