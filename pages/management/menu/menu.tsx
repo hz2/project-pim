@@ -44,6 +44,7 @@ function preventDefault(event: React.MouseEvent) {
 export default function Page() {
 
     const [list, setList] = React.useState<IForm[]>([])
+    const { dispatch } = React.useContext(UserContext)
 
     const getList = () => {
         _get('/sys/menu').then(res => {
@@ -57,6 +58,8 @@ export default function Page() {
         _delete('/sys/menu/' + id).then(res => {
             console.log('r', res);
             getList()
+        }).catch(e => {
+            dispatch({ type: "open_msg", data: e.message || '失败' })
         })
 
     }
@@ -65,16 +68,8 @@ export default function Page() {
         getList()
     }, [])
 
-    const { dispatch } = React.useContext(UserContext)
-
     return (
         <Layout>
-            <Button onClick={() => dispatch({ type: "open_msg", data: '1111' })}>
-                qqqwww
-            </Button>
-            <br />
-            <br />
-            <br />
             <FileUpload {...fileUploadProp} />
             <AddMenu />
             <Grid container spacing={3}>
