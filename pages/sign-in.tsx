@@ -15,7 +15,7 @@ import PageProvider from '@/components/PageProvider';
 
 import Copyright from '@/components/Copyright';
 import { useRouter } from 'next/router'
-import { _req } from '@/utils/service';
+import {  _req } from '@/utils/service';
 import { UserContext } from "@/components/PageProvider"
 
 
@@ -42,7 +42,7 @@ export default function SignInSide() {
           sessionStorage.setItem('access_token', String(res?.access_token))
         }
       }).catch(e => {
-        dispatch({ type: "open_msg", data: e.message || '失败' })
+        dispatch({ type: "open_err", data: e.message || '失败' })
       })
   };
 
