@@ -18,6 +18,7 @@ export interface PageProps {
 
 export default function PageProvider({ children }: PageProps) {
     const [state, dispatch] = React.useReducer(reducer, initialState);
+    const { msg } = state
     return (<>
         <ThemeProvider theme={theme}>
             <UserContext.Provider value={{ state, dispatch }}>
@@ -25,11 +26,11 @@ export default function PageProvider({ children }: PageProps) {
             </UserContext.Provider>
         </ThemeProvider>
         <Snackbar
-            open={state.msgStatus}
+            open={msg.state}
             autoHideDuration={1200}
             onClose={() => dispatch({ type: "close_msg" })}
         >
-            <Alert severity="success" sx={{ width: '100%' }}>{state.msgText}</Alert>
+            <Alert severity={msg.type} sx={{ width: '100%' }}>{msg.text}</Alert>
         </Snackbar>
     </>)
 }

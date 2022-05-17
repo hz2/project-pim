@@ -2,12 +2,15 @@
 import * as React from 'react';
 
 interface IState {
-    msgStatus: boolean
-    msgText: string | undefined
+    msg: {
+        state: boolean
+        text: string | undefined
+        type: 'success' | 'info' | 'warning' | 'error'
+    }
 }
 
 type ACTIONTYPE =
-    | { type: string, data?: string }
+    | { type: string, data?: string | IState }
     | null | undefined
 
 export type ContextType = {
@@ -19,26 +22,57 @@ export type ContextType = {
 export const defaultDispatch: React.Dispatch<ACTIONTYPE> = () => null
 
 export const initialState: IState = {
-    msgStatus: false,
-    msgText: '',
+    msg: {
+        state: false,
+        text: '',
+        type: 'success'
+    }
 }
 
 export const reducer: React.Reducer<IState, ACTIONTYPE> = (state, action) => {
     if (!action) {
         return state
     }
+    const payload = action.data;
+    const msgType = {
+        'open_msg': 'success',
+        'open_err': 'error',
+        'open_warn': 'warning',
+        'open_info': 'info'
+    }
+    const genMsg = (type: 'open_msg' | 'open_err' | 'open_warn' | 'open_info') => ({
+        state: true,
+        text: payload,
+        type: msgType[type]
+    })
     switch (action.type) {
         case "open_msg":
             return {
                 ...state,
-                msgStatus: true,
-                msgText: action.data
-            }
+                msg: genMsg(action.type)
+            } as IState
+        case "open_err":
+            return {
+                ...state,
+                msg: genMsg(action.type)
+            } as IState
+        case "open_warn":
+            return {
+                ...state,
+                msg: genMsg(action.type)
+            } as IState
+        case "open_info":
+            return {
+                ...state,
+                msg: genMsg(action.type)
+            } as IState
         case "close_msg":
             return {
                 ...state,
-                msgStatus: false,
-                msgText: ''
+                msg: {
+                    ...state.msg,
+                    state: false
+                }
             }
 
         default:

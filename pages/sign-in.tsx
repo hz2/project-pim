@@ -15,19 +15,16 @@ import PageProvider from '@/components/PageProvider';
 
 import Copyright from '@/components/Copyright';
 import { useRouter } from 'next/router'
-import { IData, IForm, _req } from '@/utils/service';
+import { _req } from '@/utils/service';
+import { UserContext } from "@/components/PageProvider"
 
 
 
 export default function SignInSide() {
 
-
-// const { _msg } = useMsg()
-
+  const { dispatch } = React.useContext(UserContext)
   const router = useRouter()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    // _msg('qqqq')
-    
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const p = {
@@ -40,10 +37,13 @@ export default function SignInSide() {
     }
     _req('/api/admin/login', p)
       .then((res) => {
-        if ( !Array.isArray(res) ) {
+        if (!Array.isArray(res)) {
           router.push('/dashboard')
+          dispatch({ type: "open_msg", data: '登录成功！' })
           sessionStorage.setItem('access_token', String(res?.access_token))
         }
+      }).catch(e => {
+        dispatch({ type: "open_err", data: e.message || '失败' })
       })
   };
 
