@@ -69,7 +69,10 @@ export const reducer: React.Reducer<IState, ACTIONTYPE> = (state, action) => {
         case "close_msg":
             return {
                 ...state,
-                msg: initialState.msg
+                msg: {
+                    ...state.msg,
+                    state: false
+                }
             }
 
         default:

@@ -15,7 +15,7 @@ import PageProvider from '@/components/PageProvider';
 
 import Copyright from '@/components/Copyright';
 import { useRouter } from 'next/router'
-import {  _req } from '@/utils/service';
+import { _req } from '@/utils/service';
 import { UserContext } from "@/components/PageProvider"
 
 
@@ -39,6 +39,7 @@ export default function SignInSide() {
       .then((res) => {
         if (!Array.isArray(res)) {
           router.push('/dashboard')
+          dispatch({ type: "open_msg", data: '登录成功！' })
           sessionStorage.setItem('access_token', String(res?.access_token))
         }
       }).catch(e => {
