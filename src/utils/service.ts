@@ -1,7 +1,5 @@
-
-
-
 import Router from 'next/router'
+import { UserContext } from "@/components/PageProvider"
 
 export interface IForm {
     [k: string]: string | number | boolean | File
@@ -30,6 +28,7 @@ const _base = (url: string, config: RequestInit): Promise<IData<IForm | IForm[]>
                 Router.push('/sign-in')
             } else {
                 console.log('message: ', message);
+                reject(res)
             }
         })
 })
