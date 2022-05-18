@@ -1,12 +1,21 @@
 import * as React from 'react';
 import Layout from '@/components/DashboardLayout'
 import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button } from '@mui/material';
-import { Title } from '@mui/icons-material';
+import { DoneAll, Title } from '@mui/icons-material';
 import AddMenu from "./addMenu";
 import { FileUpload, FileUploadProps } from "./uploader";
 import { _get, _delete, IForm, _upload } from '@/utils/service';
 
 import { UserContext } from "@/components/PageProvider"
+
+
+
+import Dialog, { DialogProps } from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 
 const fileUploadProp: FileUploadProps = {
@@ -68,10 +77,38 @@ export default function Page() {
         getList()
     }, [])
 
+
+    // dialog start
+    const [open, setOpen] = React.useState(false);
+    const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
+
+    const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
+        setOpen(true);
+        setScroll(scrollType);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const descriptionElementRef = React.useRef<HTMLElement>(null);
+    React.useEffect(() => {
+        if (open) {
+            const { current: descriptionElement } = descriptionElementRef;
+            if (descriptionElement !== null) {
+                descriptionElement.focus();
+            }
+        }
+    }, [open]);
+
+    // dialog end
+
+
+
     return (
         <Layout>
-            <FileUpload {...fileUploadProp} />
-            <AddMenu />
+            <Button variant="contained" onClick={handleClickOpen('paper')}>scroll=paper</Button>
+            <Button variant="outlined" onClick={handleClickOpen('body')}>scroll=body</Button>
             <Grid container spacing={3}>
                 {/* Recent Orders */}
                 <Grid item xs={12}>
@@ -107,6 +144,30 @@ export default function Page() {
                     </Paper>
                 </Grid>
             </Grid>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                scroll={scroll}
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
+            >
+                <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+                <DialogContent dividers={scroll === 'paper'}>
+                    <DialogContentText
+                        id="scroll-dialog-description"
+                        ref={descriptionElementRef}
+                        tabIndex={-1}
+                    >
+
+                        <FileUpload {...fileUploadProp} />
+                        <AddMenu />
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Subscribe</Button>
+                </DialogActions>
+            </Dialog>
         </Layout >
     );
 }
