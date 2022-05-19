@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Layout from '@/components/DashboardLayout'
-import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button } from '@mui/material';
+import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box } from '@mui/material';
 import { DoneAll, Title } from '@mui/icons-material';
 import AddMenu from "./addMenu";
 import { FileUpload, FileUploadProps } from "./uploader";
@@ -13,7 +13,6 @@ import { UserContext } from "@/components/PageProvider"
 import Dialog, { DialogProps } from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
@@ -80,26 +79,14 @@ export default function Page() {
 
     // dialog start
     const [open, setOpen] = React.useState(false);
-    const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
 
-    const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
+    const handleClickOpen = () => {
         setOpen(true);
-        setScroll(scrollType);
     };
 
     const handleClose = () => {
         setOpen(false);
     };
-
-    const descriptionElementRef = React.useRef<HTMLElement>(null);
-    React.useEffect(() => {
-        if (open) {
-            const { current: descriptionElement } = descriptionElementRef;
-            if (descriptionElement !== null) {
-                descriptionElement.focus();
-            }
-        }
-    }, [open]);
 
     // dialog end
 
@@ -107,8 +94,9 @@ export default function Page() {
 
     return (
         <Layout>
-            <Button variant="contained" onClick={handleClickOpen('paper')}>scroll=paper</Button>
-            <Button variant="outlined" onClick={handleClickOpen('body')}>scroll=body</Button>
+            <Box component="span" sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
+                <Button variant="contained" onClick={handleClickOpen}>Add menu</Button>
+            </Box>
             <Grid container spacing={3}>
                 {/* Recent Orders */}
                 <Grid item xs={12}>
@@ -147,21 +135,17 @@ export default function Page() {
             <Dialog
                 open={open}
                 onClose={handleClose}
-                scroll={scroll}
+                scroll="paper"
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
+                fullWidth
+                maxWidth="md"
             >
-                <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
-                <DialogContent dividers={scroll === 'paper'}>
-                    <DialogContentText
-                        id="scroll-dialog-description"
-                        ref={descriptionElementRef}
-                        tabIndex={-1}
-                    >
+                <DialogTitle id="scroll-dialog-title">Add Menu</DialogTitle>
+                <DialogContent dividers>
 
-                        <FileUpload {...fileUploadProp} />
-                        <AddMenu />
-                    </DialogContentText>
+                    <FileUpload {...fileUploadProp} />
+                    <AddMenu />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
