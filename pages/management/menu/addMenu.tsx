@@ -23,9 +23,6 @@ export default function Checkout() {
     };
     return (
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-            <Typography component="h1" variant="h4" align="center">
-                Add Menu
-            </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} >
                 <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'flex-end' }} >
                     <Grid item xs={12} sm={6}>
