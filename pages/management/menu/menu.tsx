@@ -16,7 +16,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
-
 const fileUploadProp: FileUploadProps = {
     accept: 'image/*',
     imageButton: true,
@@ -91,6 +90,19 @@ export default function Page() {
     // dialog end
 
 
+    const addMenuElementRef = React.useRef<HTMLElement>(null);
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        const { current: addMenuElement } = addMenuElementRef;
+        if (addMenuElement !== null) {
+            // addMenuElement.focus();
+            addMenuElement.onsubmit(event)
+        }
+
+
+        setOpen(false);
+
+    }
+
 
     return (
         <Layout>
@@ -144,12 +156,12 @@ export default function Page() {
                 <DialogTitle id="scroll-dialog-title">Add Menu</DialogTitle>
                 <DialogContent dividers>
 
-                    <FileUpload {...fileUploadProp} />
-                    <AddMenu />
+                    {/* <FileUpload {...fileUploadProp} /> */}
+                    <AddMenu ref={addMenuElementRef} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
+                    <Button onClick={handleSubmit}>Subscribe</Button>
                 </DialogActions>
             </Dialog>
         </Layout >
