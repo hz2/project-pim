@@ -21,7 +21,7 @@ export default React.forwardRef((props, ref) => {
     };
     const formRef = React.useRef<HTMLElement>(null);
     React.useImperativeHandle(ref, () => ({
-        onsubmit: () => {
+        formSubmit: () => {
             const { current: form } = formRef;
             if (form !== null) {
                 form.dispatchEvent(new Event('submit', {

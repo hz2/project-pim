@@ -89,13 +89,16 @@ export default function Page() {
 
     // dialog end
 
+    type FormRef = HTMLElement & {
+        formSubmit: () => null
+    }
 
-    const addMenuElementRef = React.useRef<HTMLElement>(null);
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const addMenuElementRef = React.useRef<FormRef>(null);
+    const handleSubmit = (_event: React.FormEvent<HTMLFormElement>) => {
         const { current: addMenuElement } = addMenuElementRef;
         if (addMenuElement !== null) {
             // addMenuElement.focus();
-            addMenuElement.onsubmit(event)
+            addMenuElement.formSubmit()
         }
 
 
