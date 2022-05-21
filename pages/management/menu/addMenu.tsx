@@ -7,26 +7,33 @@ import { Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
 import { formToObj } from '@/utils/utils';
 import { _req } from '@/utils/service';
 
-
-export default function Checkout() {
+const AddMenu = React.forwardRef((props, ref) => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
         const data = formToObj(form)
-        console.log('e', data);
-
         _req('/sys/menu', data).then(res => {
             console.log('r ');
 
         })
 
     };
+    const formRef = React.useRef<HTMLElement>(null);
+    React.useImperativeHandle(ref, () => ({
+        formSubmit: () => {
+            const { current: form } = formRef;
+            if (form !== null) {
+                form.dispatchEvent(new Event('submit', {
+                    'bubbles': true, // Whether the event will bubble up through the DOM or not
+                    'cancelable': true  // Whether the event may be canceled or not
+                }))
+            }
+        }
+    }));
+
     return (
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-            <Typography component="h1" variant="h4" align="center">
-                Add Menu
-            </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} >
+            <Box component="form" ref={formRef} noValidate onSubmit={handleSubmit} >
                 <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'flex-end' }} >
                     <Grid item xs={12} sm={6}>
                         <TextField
@@ -88,4 +95,7 @@ export default function Checkout() {
             </Box>
         </Paper>
     );
-}
+})
+
+AddMenu.displayName = 'AddMenu';
+export default AddMenu

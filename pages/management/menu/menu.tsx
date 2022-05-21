@@ -1,12 +1,19 @@
 import * as React from 'react';
 import Layout from '@/components/DashboardLayout'
-import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button } from '@mui/material';
-import { Title } from '@mui/icons-material';
+import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box } from '@mui/material';
+import { DoneAll, Title } from '@mui/icons-material';
 import AddMenu from "./addMenu";
 import { FileUpload, FileUploadProps } from "./uploader";
 import { _get, _delete, IForm, _upload } from '@/utils/service';
 
 import { UserContext } from "@/components/PageProvider"
+
+
+
+import Dialog, { DialogProps } from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 const fileUploadProp: FileUploadProps = {
@@ -68,10 +75,43 @@ export default function Page() {
         getList()
     }, [])
 
+
+    // dialog start
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    // dialog end
+
+    type FormRef = HTMLElement & {
+        formSubmit: () => null
+    }
+
+    const addMenuElementRef = React.useRef<FormRef>(null);
+    const handleSubmit = () => {
+        const { current: addMenuElement } = addMenuElementRef;
+        if (addMenuElement !== null) {
+            // addMenuElement.focus();
+            addMenuElement.formSubmit()
+        }
+
+
+        setOpen(false);
+
+    }
+
+
     return (
         <Layout>
-            <FileUpload {...fileUploadProp} />
-            <AddMenu />
+            <Box component="span" sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
+                <Button variant="contained" onClick={handleClickOpen}>Add menu</Button>
+            </Box>
             <Grid container spacing={3}>
                 {/* Recent Orders */}
                 <Grid item xs={12}>
@@ -107,6 +147,26 @@ export default function Page() {
                     </Paper>
                 </Grid>
             </Grid>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                scroll="paper"
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
+                fullWidth
+                maxWidth="md"
+            >
+                <DialogTitle id="scroll-dialog-title">Add Menu</DialogTitle>
+                <DialogContent dividers>
+
+                    {/* <FileUpload {...fileUploadProp} /> */}
+                    <AddMenu ref={addMenuElementRef} />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleSubmit}>Subscribe</Button>
+                </DialogActions>
+            </Dialog>
         </Layout >
     );
 }
