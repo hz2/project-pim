@@ -7,8 +7,7 @@ import { Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
 import { formToObj } from '@/utils/utils';
 import { _req } from '@/utils/service';
 
-
-export default React.forwardRef((props, ref) => {
+const AddMenu = React.forwardRef((props, ref) => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
@@ -97,3 +96,6 @@ export default React.forwardRef((props, ref) => {
         </Paper>
     );
 })
+
+AddMenu.displayName = 'AddMenu';
+export default AddMenu
