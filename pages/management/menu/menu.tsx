@@ -94,7 +94,7 @@ export default function Page() {
     }
 
     const addMenuElementRef = React.useRef<FormRef>(null);
-    const handleSubmit = (_event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = () => {
         const { current: addMenuElement } = addMenuElementRef;
         if (addMenuElement !== null) {
             // addMenuElement.focus();
