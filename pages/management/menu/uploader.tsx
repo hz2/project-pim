@@ -152,7 +152,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                     {imageButton && imageUrl && (
                         <Box position="absolute" height={height} width={width}>
                             <Image
-                                loader={imgLoader}
+                                unoptimized
                                 alt="file upload"
                                 objectFit='cover'
                                 src={imageUrl}
