@@ -159,12 +159,12 @@ export default function Page() {
                 <DialogTitle id="scroll-dialog-title">Add Menu</DialogTitle>
                 <DialogContent dividers>
 
-                    {/* <FileUpload {...fileUploadProp} /> */}
+                    <FileUpload {...fileUploadProp} />
                     <AddMenu ref={addMenuElementRef} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Subscribe</Button>
+                    <Button onClick={handleSubmit}>Submit</Button>
                 </DialogActions>
             </Dialog>
         </Layout >
