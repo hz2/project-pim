@@ -116,6 +116,14 @@ export const secondaryListItems = (
         <ListItemText primary="Feedback" />
       </ListItemButton>
     </Link>
+    <Link href="/management/account/account" passHref={true}>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Account" />
+      </ListItemButton>
+    </Link>
     <Link href="/management/menu/menu" passHref={true}>
       <ListItemButton>
         <ListItemIcon>
