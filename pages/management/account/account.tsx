@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Layout from '@/components/DashboardLayout'
-import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box } from '@mui/material';
+import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box, Avatar } from '@mui/material';
 import { DoneAll, Title } from '@mui/icons-material';
 import AddMenu from "../menu/addMenu";
 import { FileUpload, FileUploadProps } from "../menu/uploader";
-import { _get, _delete, IForm, _upload } from '@/utils/service';
+import { _get, _delete, _upload } from '@/utils/service';
 
 import { UserContext } from "@/components/PageProvider"
 
@@ -48,16 +48,28 @@ const fileUploadProp: FileUploadProps = {
 function preventDefault(event: React.MouseEvent) {
     event.preventDefault();
 }
+
+interface IRow {
+    id: number
+    name: string
+    email: string
+    username: string
+    avatar: string
+    mobile: string
+    sex: string
+    birthday: Date
+    address: string
+}
+
 export default function Page() {
 
-    const [list, setList] = React.useState<IForm[]>([])
+    const [list, setList] = React.useState<IRow[]>([])
     const { dispatch } = React.useContext(UserContext)
 
     const getList = () => {
-        _get('/sys/account').then(res => {
-            if (res instanceof Array) {
-                setList(res)
-            }
+        _get('/sys/account').then((res) => {
+            const row: IRow[] = res;
+            setList(row)
         })
     }
 
@@ -68,6 +80,9 @@ export default function Page() {
         }).catch(e => {
             dispatch({ type: "open_err", data: e.message || '失败' })
         })
+
+    }
+    const updateAccount = (id: string) => {
 
     }
 
@@ -110,40 +125,44 @@ export default function Page() {
     return (
         <Layout>
             <Box component="span" sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
-                <Button variant="contained" onClick={handleClickOpen}>Add menu</Button>
+                <Button variant="contained" onClick={handleClickOpen}>Add account</Button>
             </Box>
             <Grid container spacing={3}>
-                {/* Recent Orders */}
                 <Grid item xs={12}>
                     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                        <Title>Recent Orders</Title>
-                        <Table size="small">
+                        <Table size="medium">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Date</TableCell>
+                                    <TableCell>Avatar</TableCell>
                                     <TableCell>Name</TableCell>
-                                    <TableCell>Ship To</TableCell>
-                                    <TableCell>Payment Method</TableCell>
+                                    <TableCell>Mobile</TableCell>
+                                    <TableCell>Email</TableCell>
+                                    <TableCell>Gender</TableCell>
+                                    <TableCell>Birthday</TableCell>
+                                    <TableCell>Address</TableCell>
                                     <TableCell align="right">delete</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {list.map((row) => (
                                     <TableRow key={Number(row.id)}>
-                                        <TableCell>{row.text}</TableCell>
-                                        <TableCell>{row.path}</TableCell>
-                                        <TableCell>{row.component}</TableCell>
-                                        <TableCell>{row.icon}</TableCell>
+                                        <TableCell>
+                                            <Avatar alt={row.name} src={row.avatar} />
+                                        </TableCell>
+                                        <TableCell>{row.name}</TableCell>
+                                        <TableCell>{row.mobile}</TableCell>
+                                        <TableCell>{row.email}</TableCell>
+                                        <TableCell>{row.sex}</TableCell>
+                                        <TableCell>{row.birthday}</TableCell>
+                                        <TableCell>{row.address}</TableCell>
                                         <TableCell align="right">
-                                            <Button color="error" onClick={() => deleteMenu(String(row.id))}>delete</Button>
+                                            <Button variant="outlined" size='small' color="error" onClick={() => deleteMenu(String(row.id))}>Delete</Button>
+                                            <Button variant="outlined" size='small' color="primary" sx={{ marginLeft: 2 }} onClick={() => updateAccount(String(row.id))}>Update</Button>
                                         </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
-                        <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-                            See more orders
-                        </Link>
                     </Paper>
                 </Grid>
             </Grid>
