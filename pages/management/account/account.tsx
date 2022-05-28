@@ -1,47 +1,15 @@
 import * as React from 'react';
 import Layout from '@/components/DashboardLayout'
 import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box, Avatar } from '@mui/material';
-import { DoneAll, Title } from '@mui/icons-material';
-import AddMenu from "../menu/addMenu";
-import { FileUpload, FileUploadProps } from "../menu/uploader";
-import { _get, _delete, _upload } from '@/utils/service';
+import AddAccount from "./addAccount";
+import { _get, _delete } from '@/utils/service';
 
 import { UserContext } from "@/components/PageProvider"
-
-
 
 import Dialog, { DialogProps } from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-
-
-const fileUploadProp: FileUploadProps = {
-    accept: 'image/*',
-    imageButton: true,
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (
-            event.target.files !== null &&
-            event.target?.files?.length > 0
-        ) {
-
-            const file = event.target.files
-            console.log(`Saving ${event.target.value}`, file)
-
-            const formData = new FormData()
-            formData.append("image", file[0]);
-
-            _upload('/file-upload/single', formData).then(r => {
-                console.log('qqq', r);
-
-            })
-        }
-    },
-    onDrop: (event: React.DragEvent<HTMLElement>) => {
-        console.log(`Drop ${event.dataTransfer.files[0].name}`)
-    },
-}
-
 
 
 
@@ -115,8 +83,6 @@ export default function Page() {
             // addMenuElement.focus();
             addMenuElement.formSubmit()
         }
-
-
         setOpen(false);
 
     }
@@ -177,9 +143,7 @@ export default function Page() {
             >
                 <DialogTitle id="scroll-dialog-title">Add Menu</DialogTitle>
                 <DialogContent dividers>
-
-                    <FileUpload {...fileUploadProp} />
-                    <AddMenu ref={addMenuElementRef} />
+                    <AddAccount ref={addMenuElementRef} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
