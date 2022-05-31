@@ -51,7 +51,7 @@ export default function Page() {
 
     }
     const [row,setRow] = React.useState({})
-    const updateAccount = (row) => {
+    const updateAccount = (row) => {        
         setRow(row)
         setOpen(true);
 
