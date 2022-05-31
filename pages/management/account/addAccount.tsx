@@ -9,6 +9,8 @@ import { _req } from '@/utils/service';
 import Uploader from '@/components/Uploader';
 
 const AddMenu = React.forwardRef((props, ref) => {
+    console.log('props', props);
+    
     const { row } = props
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -33,12 +35,12 @@ const AddMenu = React.forwardRef((props, ref) => {
         }
     }));
 
-    const [link,SetLink] = React.useState('')
+    const [link,SetLink] = React.useState(row.avatar||'')
 
     return (
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
             <Box component="form" ref={formRef} noValidate onSubmit={handleSubmit} >
-                {{ row }}
+                { JSON.stringify(row) }
                 <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'flex-end' }} >
                     <Grid item xs={12} sm={6}>
                         <Uploader value={link} onSuccess={r=>SetLink(r)}/>
