@@ -50,7 +50,10 @@ export default function Page() {
         })
 
     }
-    const updateAccount = (id: string) => {
+    const [row,setRow] = React.useState({})
+    const updateAccount = (row) => {
+        setRow(row)
+        setOpen(true);
 
     }
 
@@ -123,7 +126,7 @@ export default function Page() {
                                         <TableCell>{row.address}</TableCell>
                                         <TableCell align="right">
                                             <Button variant="outlined" size='small' color="error" onClick={() => deleteMenu(String(row.id))}>Delete</Button>
-                                            <Button variant="outlined" size='small' color="primary" sx={{ marginLeft: 2 }} onClick={() => updateAccount(String(row.id))}>Update</Button>
+                                            <Button variant="outlined" size='small' color="primary" sx={{ marginLeft: 2 }} onClick={() => updateAccount(row)}>Update</Button>
                                         </TableCell>
                                     </TableRow>
                                 ))}
@@ -143,7 +146,7 @@ export default function Page() {
             >
                 <DialogTitle id="scroll-dialog-title">Add Menu</DialogTitle>
                 <DialogContent dividers>
-                    <AddAccount ref={addMenuElementRef} />
+                    <AddAccount ref={addMenuElementRef} row={row}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
