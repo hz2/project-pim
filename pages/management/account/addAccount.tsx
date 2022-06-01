@@ -9,9 +9,13 @@ import { _req } from '@/utils/service';
 import Uploader from '@/components/Uploader';
 import { IAccountRow } from "@/types/types";
 
+
+type FormRef = HTMLElement & {
+    formSubmit: () => null
+}
 interface IPageProps {
     row: IAccountRow
-    ref:  React.ForwardedRef<HTMLElement>
+    ref: any;
 }
 
 const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
