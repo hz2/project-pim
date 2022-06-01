@@ -11,32 +11,17 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import { IAccountRow, defaultAccountRow } from "@/types/types";
 
-
-function preventDefault(event: React.MouseEvent) {
-    event.preventDefault();
-}
-
-interface IRow {
-    id: number
-    name: string
-    email: string
-    username: string
-    avatar: string
-    mobile: string
-    sex: string
-    birthday: Date
-    address: string
-}
 
 export default function Page() {
 
-    const [list, setList] = React.useState<IRow[]>([])
+    const [list, setList] = React.useState<IAccountRow[]>([])
     const { dispatch } = React.useContext(UserContext)
 
     const getList = () => {
         _get('/sys/account').then((res) => {
-            const row: IRow[] = res;
+            const row: IAccountRow[] = res;
             setList(row)
         })
     }
@@ -50,8 +35,8 @@ export default function Page() {
         })
 
     }
-    const [row,setRow] = React.useState({})
-    const updateAccount = (row) => {        
+    const [row,setRow] = React.useState(defaultAccountRow)
+    const updateAccount = (row:IAccountRow) => {        
         setRow(row)
         setOpen(true);
 
@@ -146,7 +131,7 @@ export default function Page() {
             >
                 <DialogTitle id="scroll-dialog-title">Add Menu</DialogTitle>
                 <DialogContent dividers>
-                    <AddAccount ref={addMenuElementRef} row={row}/>
+                    <AddAccount ref={addMenuElementRef} row={row} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
