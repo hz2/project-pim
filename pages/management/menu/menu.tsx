@@ -7,6 +7,7 @@ import { FileUpload, FileUploadProps } from "./uploader";
 import { _get, _delete, _upload } from '@/utils/service';
 
 import { UserContext } from "@/components/PageProvider"
+import { IMenu } from "@/types/types";
 
 
 
@@ -50,7 +51,7 @@ function preventDefault(event: React.MouseEvent) {
 }
 export default function Page() {
 
-    const [list, setList] = React.useState([])
+    const [list, setList] = React.useState<IMenu[]>([])
     const { dispatch } = React.useContext(UserContext)
 
     const getList = () => {
