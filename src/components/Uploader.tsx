@@ -4,33 +4,29 @@ import { Box, Typography } from '@mui/material';
 import Image from 'next/image'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import clsx from 'clsx'
-import { imgLoader } from '@/utils/utils';
-
-export type FileUploadProps = {
-    imageButton?: boolean
-    accept: string
-    hoverLabel?: string
-    dropLabel?: string
+import { _upload } from '@/utils/service';
+interface UploaderProps {
+    value?: string
+    onSuccess?: (str: string) => void
     width?: string
     height?: string
+    imageButton?: boolean
+    accept?: string
+    hoverLabel?: string
+    dropLabel?: string
     backgroundColor?: string
-    image?: {
-        url: string
-        imageStyle?: {
-            width?: string
-            height?: string
-        }
-    }
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-    onDrop: (event: React.DragEvent<HTMLElement>) => void
 }
+
 
 const useStyle = makeStyles({
     root: {
         cursor: 'pointer',
         textAlign: 'center',
-        display: 'flex',
+        display: 'inline-flex',
         position: 'relative',
+        border: '1px dashed #6fc141',
+        borderRadius: '10px',
+        overflow: 'hidden',
         '&:hover p,&:hover svg,& img': {
             opacity: 1,
         },
@@ -64,23 +60,18 @@ const useStyle = makeStyles({
     },
 })
 
-export const FileUpload: React.FC<FileUploadProps> = ({
-    accept,
-    imageButton = false,
+export const FileUpload: React.FC<UploaderProps> = ({
+    value: url = '',
+    width = '200px',
+    height = '200px',
+    onSuccess = (_str) => null,
+    accept = 'image/*',
+    imageButton = true,
     hoverLabel = 'Click or drag to upload file',
     dropLabel = 'Drop file here',
-    width = '400px',
-    height = '400px',
-    backgroundColor = '#fff',
-    image: {
-        url = '/',
-        imageStyle = {
-            height: 'inherit',
-        },
-    } = {},
-    onChange,
-    onDrop,
+    backgroundColor = '#fff'
 }) => {
+
     const classes = useStyle()
     const [imageUrl, setImageUrl] = React.useState(url)
     const [labelText, setLabelText] = React.useState<string>(hoverLabel)
@@ -112,20 +103,33 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             stopDefaults(e)
             setLabelText(hoverLabel)
             setIsDragOver(false)
-            if (imageButton && e.dataTransfer.files[0]) {
-                setImageUrl(URL.createObjectURL(e.dataTransfer.files[0]))
+            const file = e.dataTransfer.files[0]
+            if (imageButton && file) {
+                setImageUrl(URL.createObjectURL(file))
+                uploadImg(file)
             }
-            onDrop(e)
         },
     }
+
+    const uploadImg = (file: File) => {
+        const formData = new FormData()
+        formData.append("image", file);
+        _upload('/file-upload/single', formData).then(r => {
+            const link: string = r?.image_url || ''
+            setImageUrl(link)
+            onSuccess(link)
+        })
+    }
+
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event?.target?.files || []
         if (imageButton && files.length) {
-            setImageUrl(URL.createObjectURL(files[0]))
+            const file = files[0]
+            setImageUrl(URL.createObjectURL(file))
+            uploadImg(file)
         }
 
-        onChange(event)
     }
 
     return (
@@ -167,6 +171,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                             <Box
                                 height={height}
                                 width={width}
+                                color="#666"
                                 className={classes.iconText}
                             >
                                 <CloudUploadIcon fontSize="large" />

@@ -6,15 +6,31 @@ import Typography from '@mui/material/Typography';
 import { Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
 import { formToObj } from '@/utils/utils';
 import { _req } from '@/utils/service';
+import Uploader from '@/components/Uploader';
+import { IAccountRow , defaultAccountRow} from "@/types/types";
 
-const AddMenu = React.forwardRef((props, ref) => {
+
+type FormRef = {
+    formSubmit: () => void
+}
+interface IPageProps {
+    row: IAccountRow
+    ref: React.ForwardedRef<FormRef>
+    onSuccess: () => void
+}
+
+const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
+    const { row = defaultAccountRow, onSuccess } = props
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
         const data = formToObj(form)
-        _req('/sys/menu', data).then(res => {
+        _req('/sys/account/update', {
+            id: row.id,
+            ...data
+        }).then(res => {
             console.log('r ');
-
+            onSuccess()
         })
 
     };
@@ -31,17 +47,22 @@ const AddMenu = React.forwardRef((props, ref) => {
         }
     }));
 
+    const [link, SetLink] = React.useState(row.avatar || '')
+
     return (
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
             <Box component="form" ref={formRef} noValidate onSubmit={handleSubmit} >
                 <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'flex-end' }} >
                     <Grid item xs={12} sm={6}>
+                        <Uploader value={link} onSuccess={r => SetLink(r)} />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
                         <TextField
                             required
-                            id="menuName"
-                            name="text"
-                            label="Menu Name"
-                            autoComplete="username"
+                            id="name"
+                            name="name"
+                            label="Name"
+                            defaultValue={row.name}
                             fullWidth
                             variant="standard"
                         />
@@ -49,9 +70,10 @@ const AddMenu = React.forwardRef((props, ref) => {
                     <Grid item xs={12} sm={6}>
                         <TextField
                             required
-                            id="menuPath"
-                            name="path"
-                            label="Menu Path"
+                            id="mobile"
+                            name="mobile"
+                            label="Mobile"
+                            defaultValue={row.mobile}
                             fullWidth
                             variant="standard"
                         />
@@ -59,9 +81,10 @@ const AddMenu = React.forwardRef((props, ref) => {
                     <Grid item xs={12} sm={6}>
                         <TextField
                             required
-                            id="menuIcon"
-                            name="icon"
-                            label="Menu Icon"
+                            id="sex"
+                            name="sex"
+                            label="Gender"
+                            defaultValue={row.sex}
                             fullWidth
                             variant="standard"
                         />
@@ -69,21 +92,13 @@ const AddMenu = React.forwardRef((props, ref) => {
                     <Grid item xs={12}>
                         <TextField
                             required
-                            id="component"
-                            name="component"
-                            label="Component"
+                            id="address"
+                            name="address"
+                            label="address"
+                            defaultValue={row.address}
                             fullWidth
-                            autoComplete="shipping address-line1"
                             variant="standard"
                         />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-                            label="Use this address for payment details"
-                        />
-                    </Grid>
-                    <Grid container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     </Grid>
                 </Grid>
                 {/* <Button

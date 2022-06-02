@@ -5,8 +5,16 @@ module.exports = {
   reactStrictMode: true,
   trailingSlash: true,
   images: {
-    loader: 'custom'
+    loader: 'imgix',
+    path: '',
   },
+  // images: {
+  //   loader: 'custom'
+  // },
+  // images: {
+  //   loader: "imgix",
+  //   path: "https://noop/",
+  // },
   exportPathMap: async function (
     defaultPathMap, {
       dev,
