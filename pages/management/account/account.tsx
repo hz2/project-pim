@@ -1,62 +1,28 @@
 import * as React from 'react';
 import Layout from '@/components/DashboardLayout'
-import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box } from '@mui/material';
-import { DoneAll, Title } from '@mui/icons-material';
-import AddMenu from "./addMenu";
-import { FileUpload, FileUploadProps } from "./uploader";
-import { _get, _delete, _upload } from '@/utils/service';
+import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box, Avatar } from '@mui/material';
+import AddAccount from "./addAccount";
+import { _get, _delete } from '@/utils/service';
 
 import { UserContext } from "@/components/PageProvider"
-import { IMenu } from "@/types/types";
-
-
 
 import Dialog, { DialogProps } from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-
-const fileUploadProp: FileUploadProps = {
-    accept: 'image/*',
-    imageButton: true,
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (
-            event.target.files !== null &&
-            event.target?.files?.length > 0
-        ) {
-
-            const file = event.target.files
-            console.log(`Saving ${event.target.value}`, file)
-
-            const formData = new FormData()
-            formData.append("image", file[0]);
-
-            _upload('/file-upload/single', formData).then(r => {
-                console.log('qqq', r);
-
-            })
-        }
-    },
-    onDrop: (event: React.DragEvent<HTMLElement>) => {
-        console.log(`Drop ${event.dataTransfer.files[0].name}`)
-    },
-}
+import { IAccountRow, defaultAccountRow } from "@/types/types";
 
 
-
-
-function preventDefault(event: React.MouseEvent) {
-    event.preventDefault();
-}
 export default function Page() {
 
-    const [list, setList] = React.useState<IMenu[]>([])
+    const [list, setList] = React.useState<IAccountRow[]>([])
     const { dispatch } = React.useContext(UserContext)
 
     const getList = () => {
-        _get('/sys/menu').then(res => {
-            setList(res)
+        _get('/sys/account').then((res) => {
+            const row: IAccountRow[] = res;
+            setList(row)
         })
     }
 
@@ -67,6 +33,12 @@ export default function Page() {
         }).catch(e => {
             dispatch({ type: "open_err", data: e.message || '失败' })
         })
+
+    }
+    const [row,setRow] = React.useState(defaultAccountRow)
+    const updateAccount = (row:IAccountRow) => {        
+        setRow(row)
+        setOpen(true);
 
     }
 
@@ -88,7 +60,7 @@ export default function Page() {
 
     // dialog end
 
-    type FormRef = HTMLElement & {
+    type FormRef = {
         formSubmit: () => null
     }
 
@@ -99,8 +71,6 @@ export default function Page() {
             // addMenuElement.focus();
             addMenuElement.formSubmit()
         }
-
-
         setOpen(false);
 
     }
@@ -109,40 +79,44 @@ export default function Page() {
     return (
         <Layout>
             <Box component="span" sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
-                <Button variant="contained" onClick={handleClickOpen}>Add menu</Button>
+                <Button variant="contained" onClick={handleClickOpen}>Add account</Button>
             </Box>
             <Grid container spacing={3}>
-                {/* Recent Orders */}
                 <Grid item xs={12}>
                     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                        <Title>Recent Orders</Title>
-                        <Table size="small">
+                        <Table size="medium">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Date</TableCell>
+                                    <TableCell>Avatar</TableCell>
                                     <TableCell>Name</TableCell>
-                                    <TableCell>Ship To</TableCell>
-                                    <TableCell>Payment Method</TableCell>
+                                    <TableCell>Mobile</TableCell>
+                                    <TableCell>Email</TableCell>
+                                    <TableCell>Gender</TableCell>
+                                    <TableCell>Birthday</TableCell>
+                                    <TableCell>Address</TableCell>
                                     <TableCell align="right">delete</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {list.map((row) => (
                                     <TableRow key={Number(row.id)}>
-                                        <TableCell>{row.text}</TableCell>
-                                        <TableCell>{row.path}</TableCell>
-                                        <TableCell>{row.component}</TableCell>
-                                        <TableCell>{row.icon}</TableCell>
+                                        <TableCell>
+                                            <Avatar alt={row.name} src={row.avatar} />
+                                        </TableCell>
+                                        <TableCell>{row.name}</TableCell>
+                                        <TableCell>{row.mobile}</TableCell>
+                                        <TableCell>{row.email}</TableCell>
+                                        <TableCell>{row.sex}</TableCell>
+                                        <TableCell>{row.birthday}</TableCell>
+                                        <TableCell>{row.address}</TableCell>
                                         <TableCell align="right">
-                                            <Button color="error" onClick={() => deleteMenu(String(row.id))}>delete</Button>
+                                            <Button variant="outlined" size='small' color="error" onClick={() => deleteMenu(String(row.id))}>Delete</Button>
+                                            <Button variant="outlined" size='small' color="primary" sx={{ marginLeft: 2 }} onClick={() => updateAccount(row)}>Update</Button>
                                         </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
-                        <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-                            See more orders
-                        </Link>
                     </Paper>
                 </Grid>
             </Grid>
@@ -157,9 +131,7 @@ export default function Page() {
             >
                 <DialogTitle id="scroll-dialog-title">Add Menu</DialogTitle>
                 <DialogContent dividers>
-
-                    <FileUpload {...fileUploadProp} />
-                    <AddMenu ref={addMenuElementRef} />
+                    <AddAccount ref={addMenuElementRef} row={row} onSuccess={()=>getList()}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

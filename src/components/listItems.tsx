@@ -10,6 +10,43 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import Link from 'next/link';
+import { _get, _req } from '@/utils/service';
+
+
+
+export const MenuListAll = () => {
+  const [items, setItems] = React.useState<Element[]>([]);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await _get('/sys/menu')
+        if (res instanceof Array) {
+          const arr = res.map((x, i) => (
+            <Link href={String(x.path)} passHref={true} key={'menu' + i}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <DashboardIcon />
+                </ListItemIcon>
+                <ListItemText primary={x.text} />
+              </ListItemButton>
+            </Link>)) as unknown as Element[]
+          setItems(arr)
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchData();
+  }, []);
+  return <div>{items}</div>
+
+
+
+
+
+
+}
 
 export const mainListItems = (
   <React.Fragment>
@@ -77,6 +114,14 @@ export const secondaryListItems = (
           <AssignmentIcon />
         </ListItemIcon>
         <ListItemText primary="Feedback" />
+      </ListItemButton>
+    </Link>
+    <Link href="/management/account/account" passHref={true}>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Account" />
       </ListItemButton>
     </Link>
     <Link href="/management/menu/menu" passHref={true}>

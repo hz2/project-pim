@@ -17,7 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems, secondaryListItems, MenuListAll } from './listItems';
 
 
 import Copyright from '@/components/Copyright';
@@ -242,6 +242,8 @@ export default function Layout({ children }: LayoutProps) {
                     <Divider />
                     <List component="nav">
                         {mainListItems}
+                        <Divider sx={{ my: 1 }} />
+                        <MenuListAll />
                         <Divider sx={{ my: 1 }} />
                         {secondaryListItems}
                     </List>
