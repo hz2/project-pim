@@ -10,23 +10,27 @@ import Uploader from '@/components/Uploader';
 import { IAccountRow } from "@/types/types";
 
 
-type FormRef = HTMLElement & {
-    formSubmit: () => null
+type FormRef = {
+    formSubmit: () => void
 }
 interface IPageProps {
     row: IAccountRow
-    ref: any;
+    ref: React.ForwardedRef<FormRef>
+    onSuccess: () => void
 }
 
 const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
-    const { row } = props
+    const { row, onSuccess } = props
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
         const data = formToObj(form)
-        _req('/sys/menu', data).then(res => {
+        _req('/sys/account/update', {
+            id: row.id,
+            ...data
+        }).then(res => {
             console.log('r ');
-
+            onSuccess()
         })
 
     };
@@ -58,7 +62,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             id="name"
                             name="name"
                             label="Name"
-                            value={row.name}
+                            defaultValue={row.name}
                             fullWidth
                             variant="standard"
                         />
@@ -69,7 +73,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             id="mobile"
                             name="mobile"
                             label="Mobile"
-                            value={row.mobile}
+                            defaultValue={row.mobile}
                             fullWidth
                             variant="standard"
                         />
@@ -80,6 +84,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             id="sex"
                             name="sex"
                             label="Gender"
+                            defaultValue={row.sex}
                             fullWidth
                             variant="standard"
                         />
@@ -90,7 +95,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             id="address"
                             name="address"
                             label="address"
-                            value={row.address}
+                            defaultValue={row.address}
                             fullWidth
                             variant="standard"
                         />
