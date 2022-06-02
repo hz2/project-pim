@@ -4,7 +4,7 @@ import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Bu
 import { DoneAll, Title } from '@mui/icons-material';
 import AddMenu from "./addMenu";
 import { FileUpload, FileUploadProps } from "./uploader";
-import { _get, _delete, IForm, _upload } from '@/utils/service';
+import { _get, _delete, _upload } from '@/utils/service';
 
 import { UserContext } from "@/components/PageProvider"
 
@@ -50,14 +50,12 @@ function preventDefault(event: React.MouseEvent) {
 }
 export default function Page() {
 
-    const [list, setList] = React.useState<IForm[]>([])
+    const [list, setList] = React.useState([])
     const { dispatch } = React.useContext(UserContext)
 
     const getList = () => {
         _get('/sys/menu').then(res => {
-            if (res instanceof Array) {
-                setList(res)
-            }
+            setList(res)
         })
     }
 

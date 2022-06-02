@@ -60,7 +60,7 @@ export default function Page() {
 
     // dialog end
 
-    type FormRef = HTMLElement & {
+    type FormRef = {
         formSubmit: () => null
     }
 
@@ -131,7 +131,7 @@ export default function Page() {
             >
                 <DialogTitle id="scroll-dialog-title">Add Menu</DialogTitle>
                 <DialogContent dividers>
-                    <AddAccount ref={addMenuElementRef} row={row} />
+                    <AddAccount ref={addMenuElementRef} row={row} onSuccess={()=>getList()}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
