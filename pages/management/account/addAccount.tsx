@@ -7,7 +7,7 @@ import { Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
 import { formToObj } from '@/utils/utils';
 import { _req } from '@/utils/service';
 import Uploader from '@/components/Uploader';
-import { IAccountRow } from "@/types/types";
+import { IAccountRow , defaultAccountRow} from "@/types/types";
 
 
 type FormRef = {
@@ -20,7 +20,7 @@ interface IPageProps {
 }
 
 const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
-    const { row, onSuccess } = props
+    const { row = defaultAccountRow, onSuccess } = props
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
