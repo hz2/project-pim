@@ -35,13 +35,6 @@ export default function Page() {
         })
 
     }
-    const [row,setRow] = React.useState(defaultAccountRow)
-    const updateAccount = (row:IAccountRow) => {        
-        setRow(row)
-        setOpen(true);
-
-    }
-
     React.useEffect(() => {
         getList()
     }, [])
@@ -49,8 +42,13 @@ export default function Page() {
 
     // dialog start
     const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
+    const [row, setRow] = React.useState(defaultAccountRow)
+    const updateAccount = (row: IAccountRow) => {
+        setRow(row)
+        setOpen(true);
+    }
+    const handleAdd = () => {
+        setRow(defaultAccountRow)
         setOpen(true);
     };
 
@@ -79,7 +77,7 @@ export default function Page() {
     return (
         <Layout>
             <Box component="span" sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
-                <Button variant="contained" onClick={handleClickOpen}>Add account</Button>
+                <Button variant="contained" onClick={handleAdd}>Add account</Button>
             </Box>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
@@ -107,7 +105,7 @@ export default function Page() {
                                         <TableCell>{row.mobile}</TableCell>
                                         <TableCell>{row.email}</TableCell>
                                         <TableCell>{row.sex}</TableCell>
-                                        <TableCell>{row.birthday}</TableCell>
+                                        <TableCell>{new Date(String(row.birthday)).toLocaleDateString('zh')}</TableCell>
                                         <TableCell>{row.address}</TableCell>
                                         <TableCell align="right">
                                             <Button variant="outlined" size='small' color="error" onClick={() => deleteMenu(String(row.id))}>Delete</Button>
@@ -129,9 +127,9 @@ export default function Page() {
                 fullWidth
                 maxWidth="md"
             >
-                <DialogTitle id="scroll-dialog-title">Add Menu</DialogTitle>
+                <DialogTitle id="scroll-dialog-title">{row.id ? 'Edit Account' : 'Add Account'}</DialogTitle>
                 <DialogContent dividers>
-                    <AddAccount ref={addMenuElementRef} row={row} onSuccess={()=>getList()}/>
+                    <AddAccount ref={addMenuElementRef} row={row} onSuccess={() => getList()} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

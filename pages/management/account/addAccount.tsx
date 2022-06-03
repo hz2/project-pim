@@ -3,11 +3,11 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
+import { Checkbox, FormControl, FormControlLabel, Grid, TextField, RadioGroup, Radio, FormLabel } from '@mui/material';
 import { formToObj } from '@/utils/utils';
 import { _req } from '@/utils/service';
 import Uploader from '@/components/Uploader';
-import { IAccountRow , defaultAccountRow} from "@/types/types";
+import { IAccountRow, defaultAccountRow } from "@/types/types";
 
 
 type FormRef = {
@@ -27,6 +27,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
         const data = formToObj(form)
         _req('/sys/account/update', {
             id: row.id,
+            avatar: link,
             ...data
         }).then(res => {
             console.log('r ');
@@ -50,13 +51,13 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
     const [link, SetLink] = React.useState(row.avatar || '')
 
     return (
-        <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-            <Box component="form" ref={formRef} noValidate onSubmit={handleSubmit} >
-                <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'flex-end' }} >
-                    <Grid item xs={12} sm={6}>
+        <Paper variant="elevation" sx={{ my: { xs: 3, md: 3 }, p: { xs: 2, md: 3 } }}>
+            <Box component="form" ref={formRef} noValidate onSubmit={handleSubmit} sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-start' }}>
+                <Grid container spacing={3}  >
+                    <Grid item xs={4}  sx={{ alignSelf:'flex-start' }}>
                         <Uploader value={link} onSuccess={r => SetLink(r)} />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={4}  sx={{ alignSelf:'flex-start', order:'9' }}>
                         <TextField
                             required
                             id="name"
@@ -67,7 +68,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             variant="standard"
                         />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={4}  sx={{ alignSelf:'flex-start' }}>
                         <TextField
                             required
                             id="mobile"
@@ -78,18 +79,36 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             variant="standard"
                         />
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={4}  sx={{ alignSelf:'flex-start' }}>
+                        <FormControl>
+                            <FormLabel id="gender-label">Gender</FormLabel>
+                            <RadioGroup
+                                row
+                                aria-labelledby="gender-label"
+                                name="sex"
+                                defaultValue={row.sex}
+                            >
+                                <FormControlLabel value="female" control={<Radio />} label="Female" />
+                                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                            </RadioGroup>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={4}  sx={{ alignSelf:'flex-start' }}>
                         <TextField
                             required
-                            id="sex"
-                            name="sex"
-                            label="Gender"
-                            defaultValue={row.sex}
+                            id="birthday"
+                            name="birthday"
+                            label="Birthday"
+                            type="date"
+                            defaultValue={row.birthday ? new Date(String(row.birthday)).toISOString().substring(0, 10) : null}
                             fullWidth
                             variant="standard"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                         />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} >
                         <TextField
                             required
                             id="address"
@@ -101,12 +120,6 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                         />
                     </Grid>
                 </Grid>
-                {/* <Button
-                    variant="contained"
-                    type="submit"
-                    sx={{ mt: 3, ml: 1 }}
-                >Save
-                </Button> */}
             </Box>
         </Paper>
     );
