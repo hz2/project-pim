@@ -52,12 +52,12 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
 
     return (
         <Paper variant="elevation" sx={{ my: { xs: 3, md: 3 }, p: { xs: 2, md: 3 } }}>
-            <Box component="form" ref={formRef} noValidate onSubmit={handleSubmit} sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-start' }}>
-                <Grid container spacing={3}  >
-                    <Grid item xs={4}  sx={{ alignSelf:'flex-start' }}>
+            <Box component="form" ref={formRef} noValidate onSubmit={handleSubmit} >
+                <Grid container spacing={3} sx={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)' }}>
+                    <Grid item sx={{ gridRow: '1 / span 3' }}>
                         <Uploader value={link} onSuccess={r => SetLink(r)} />
                     </Grid>
-                    <Grid item xs={4}  sx={{ alignSelf:'flex-start', order:'9' }}>
+                    <Grid item  >
                         <TextField
                             required
                             id="name"
@@ -68,7 +68,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             variant="standard"
                         />
                     </Grid>
-                    <Grid item xs={4}  sx={{ alignSelf:'flex-start' }}>
+                    <Grid item  >
                         <TextField
                             required
                             id="mobile"
@@ -79,7 +79,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             variant="standard"
                         />
                     </Grid>
-                    <Grid item xs={4}  sx={{ alignSelf:'flex-start' }}>
+                    <Grid item  >
                         <FormControl>
                             <FormLabel id="gender-label">Gender</FormLabel>
                             <RadioGroup
@@ -93,7 +93,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             </RadioGroup>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={4}  sx={{ alignSelf:'flex-start' }}>
+                    <Grid item  >
                         <TextField
                             required
                             id="birthday"
