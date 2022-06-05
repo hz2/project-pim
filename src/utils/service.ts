@@ -1,10 +1,9 @@
 import Router from 'next/router'
-import { UserContext } from "@/components/PageProvider"
 
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-const _base = (url: string, config: RequestInit):Promise<any> => new Promise((resolve, reject) => {
+const _base = (url: string, config: RequestInit): Promise<any> => new Promise((resolve, reject) => {
     const token = sessionStorage.getItem('access_token')
     const auth = token ? {
         Authorization: 'Bearer ' + token
@@ -37,8 +36,12 @@ export const _req = (url: string, data?: any, cfg?: RequestInit) => _base(url, {
     ...cfg
 })
 
-export const _get = (url: string, data?: any, cfg?: RequestInit) => _req(url, data, {
-    method: "GET"
+export const _get = (url: string, data?: any, cfg?: RequestInit) => _base(url + '?' + new URLSearchParams(data).toString(), {
+    method: "GET",
+    headers: {
+        'content-type': 'application/json'
+    },
+    ...cfg
 })
 
 export const _delete = (url: string, data?: any, cfg?: RequestInit) => _req(url, data, {
