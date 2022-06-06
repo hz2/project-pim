@@ -29,8 +29,7 @@ export default function SignInSide() {
   const getUser = (token: string) => {
     _get('/api/admin/profile', { token })
       .then((res) => {
-        console.log('r', res);
-
+        window.localStorage.setItem('profile',JSON.stringify(res))
       })
 
   }

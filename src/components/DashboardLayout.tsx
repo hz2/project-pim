@@ -95,7 +95,13 @@ export default function Layout({ children }: LayoutProps) {
     const toggleDrawer = () => {
         setOpen(!open);
     };
-
+    let userProfile = {
+        avatar: '',
+        name: ''
+    }
+    if (typeof window !== 'undefined') {
+        userProfile = JSON.parse(window.localStorage.getItem('profile') || '{}')
+    }
 
     const router = useRouter()
 
@@ -169,18 +175,17 @@ export default function Layout({ children }: LayoutProps) {
 
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 2, }}>
                                     <Badge
                                         overlap='circular'
-                                        sx={{ ml: 2, cursor: 'pointer' }}
+                                        sx={{ cursor: 'pointer' }}
                                         badgeContent={<BadgeContentSpan />}
                                         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                     >
                                         <Avatar
-                                            alt='John Doe'
+                                            alt={userProfile.name}
                                             sx={{ width: 40, height: 40 }}
-                                            src='/images/avatars/1.png'
+                                            src={userProfile.avatar}
                                         />
                                     </Badge>
                                 </IconButton>
@@ -203,7 +208,7 @@ export default function Layout({ children }: LayoutProps) {
                                 onClick={() => setAnchorElUser(null)}
                             >
                                 <MenuItem>
-                                    <Typography textAlign="center">admin </Typography>
+                                    <Typography textAlign="center">{userProfile.name}</Typography>
                                 </MenuItem>
                                 <Divider />
                                 {settings.map((x) => (
