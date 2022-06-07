@@ -26,15 +26,15 @@ export default function Page() {
         })
     }
 
-    const deleteMenu = (id: string) => {
-        _delete('/sys/menu/' + id).then(res => {
-            console.log('r', res);
-            getList()
-        }).catch(e => {
-            dispatch({ type: "open_err", data: e.message || '失败' })
-        })
+    // const deleteMenu = (id: string) => {
+    //     _delete('/sys/menu/' + id).then(res => {
+    //         console.log('r', res);
+    //         getList()
+    //     }).catch(e => {
+    //         dispatch({ type: "open_err", data: e.message || '失败' })
+    //     })
 
-    }
+    // }
     React.useEffect(() => {
         getList()
     }, [])
@@ -62,15 +62,14 @@ export default function Page() {
         formSubmit: () => null
     }
 
-    const addMenuElementRef = React.useRef<FormRef>(null);
+    const addElementRef = React.useRef<FormRef>(null);
     const handleSubmit = () => {
-        const { current: addMenuElement } = addMenuElementRef;
+        const { current: addMenuElement } = addElementRef;
         if (addMenuElement !== null) {
             // addMenuElement.focus();
             addMenuElement.formSubmit()
         }
         setOpen(false);
-
     }
 
 
@@ -108,7 +107,7 @@ export default function Page() {
                                         <TableCell>{new Date(String(row.birthday)).toLocaleDateString('zh')}</TableCell>
                                         <TableCell>{row.address}</TableCell>
                                         <TableCell align="right">
-                                            <Button variant="outlined" size='small' color="error" onClick={() => deleteMenu(String(row.id))}>Delete</Button>
+                                            {/* <Button variant="outlined" size='small' color="error" onClick={() => deleteMenu(String(row.id))}>Delete</Button> */}
                                             <Button variant="outlined" size='small' color="primary" sx={{ marginLeft: 2 }} onClick={() => updateAccount(row)}>Update</Button>
                                         </TableCell>
                                     </TableRow>
@@ -129,7 +128,7 @@ export default function Page() {
             >
                 <DialogTitle id="scroll-dialog-title">{row.id ? 'Edit Account' : 'Add Account'}</DialogTitle>
                 <DialogContent dividers>
-                    <AddAccount ref={addMenuElementRef} row={row} onSuccess={() => getList()} />
+                    <AddAccount ref={addElementRef} row={row} onSuccess={() => getList()} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

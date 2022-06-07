@@ -3,7 +3,6 @@ import Layout from '@/components/DashboardLayout'
 import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box } from '@mui/material';
 import { DoneAll, Title } from '@mui/icons-material';
 import AddMenu from "./addMenu";
-import { FileUpload, FileUploadProps } from "./uploader";
 import { _get, _delete, _upload } from '@/utils/service';
 
 import { UserContext } from "@/components/PageProvider"
@@ -15,36 +14,6 @@ import Dialog, { DialogProps } from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-
-
-const fileUploadProp: FileUploadProps = {
-    accept: 'image/*',
-    imageButton: true,
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (
-            event.target.files !== null &&
-            event.target?.files?.length > 0
-        ) {
-
-            const file = event.target.files
-            console.log(`Saving ${event.target.value}`, file)
-
-            const formData = new FormData()
-            formData.append("image", file[0]);
-
-            _upload('/file-upload/single', formData).then(r => {
-                console.log('qqq', r);
-
-            })
-        }
-    },
-    onDrop: (event: React.DragEvent<HTMLElement>) => {
-        console.log(`Drop ${event.dataTransfer.files[0].name}`)
-    },
-}
-
-
-
 
 function preventDefault(event: React.MouseEvent) {
     event.preventDefault();
@@ -77,10 +46,13 @@ export default function Page() {
 
     // dialog start
     const [open, setOpen] = React.useState(false);
+    const [row, setRow] = React.useState(new IMenu)
 
-    const handleClickOpen = () => {
+    const handleAdd = () => {
+        setRow(new IMenu)
         setOpen(true);
     };
+
 
     const handleClose = () => {
         setOpen(false);
@@ -99,17 +71,14 @@ export default function Page() {
             // addMenuElement.focus();
             addMenuElement.formSubmit()
         }
-
-
         setOpen(false);
-
     }
 
 
     return (
         <Layout>
             <Box component="span" sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
-                <Button variant="contained" onClick={handleClickOpen}>Add menu</Button>
+                <Button variant="contained" onClick={handleAdd}>Add menu</Button>
             </Box>
             <Grid container spacing={3}>
                 {/* Recent Orders */}
@@ -155,11 +124,9 @@ export default function Page() {
                 fullWidth
                 maxWidth="md"
             >
-                <DialogTitle id="scroll-dialog-title">Add Menu</DialogTitle>
+                <DialogTitle id="scroll-dialog-title">{row.id ? 'Edit Menu' : 'Add Menu'} </DialogTitle>
                 <DialogContent dividers>
-
-                    <FileUpload {...fileUploadProp} />
-                    <AddMenu ref={addMenuElementRef} />
+                    <AddMenu ref={addMenuElementRef} row={row} onSuccess={() => getList()} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
