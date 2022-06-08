@@ -95,13 +95,15 @@ export default function Layout({ children }: LayoutProps) {
     const toggleDrawer = () => {
         setOpen(!open);
     };
-    let userProfile = {
+    const [userProfile, setUserProfile] = React.useState({
         avatar: '',
         name: ''
-    }
-    if (typeof window !== 'undefined') {
-        userProfile = JSON.parse(window.localStorage.getItem('profile') || '{}')
-    }
+    })
+
+    React.useEffect(() => {
+        const locProfile = JSON.parse(window.localStorage.getItem('profile') || '{}')
+        setUserProfile(locProfile)
+    }, [])
 
     const router = useRouter()
 
@@ -182,11 +184,11 @@ export default function Layout({ children }: LayoutProps) {
                                         badgeContent={<BadgeContentSpan />}
                                         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                     >
-                                        <Avatar
+                                        {userProfile.avatar ? <Avatar
                                             alt={userProfile.name}
                                             sx={{ width: 40, height: 40 }}
                                             src={userProfile.avatar}
-                                        />
+                                        /> : null}
                                     </Badge>
                                 </IconButton>
                             </Tooltip>
