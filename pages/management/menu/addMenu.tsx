@@ -99,10 +99,11 @@ interface IPageProps {
 const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
 
     const [list, setList] = React.useState<IMenu[]>([])
+    const { row = new IMenu, onSuccess } = props
     const { dispatch } = React.useContext(UserContext)
 
     const getList = () => {
-        _get('/sys/menu').then(res => {
+        _get('/sys/menu/tree').then(res => {
             setList(res)
         })
     }
@@ -115,9 +116,13 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
         const data = formToObj(form)
-        _req('/sys/menu', data).then(res => {
+        _req('/sys/menu', {
+            parentId: row.parentId,
+            id: row.id,
+            ...data
+        }).then(res => {
             console.log('r ');
-
+            onSuccess()
         })
 
     };
@@ -134,14 +139,13 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
         }
     }));
 
-    const chooseTreeItem = e=> {
-        console.log('e',e );
-        
+    const chooseTreeItem = (_event: React.SyntheticEvent<Element, Event>, nodeIds: string) => {
+        row.parentId = Number(nodeIds)
     }
 
 
     const genTree = (list: IMenu[]) => {
-        const tree = (list: IMenu[]) => list.map(x => <StyledTreeItem nodeId={String(x.id)} label={x.text} key={x.id} onClick={chooseTreeItem}>
+        const tree = (list: IMenu[]) => list.map(x => <StyledTreeItem nodeId={String(x.id)} label={x.text} key={x.id} >
             {Array.isArray(x.children) ? tree(x.children) : null}
         </StyledTreeItem>)
         return tree(list)
@@ -180,6 +184,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             defaultExpandIcon={<PlusSquare />}
                             defaultEndIcon={<CloseSquare />}
                             sx={{ height: 264, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+                            onNodeSelect={chooseTreeItem}
                         >
                             {genTree(list)}
                         </TreeView>
