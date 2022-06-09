@@ -140,11 +140,15 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
     }));
 
     const chooseTreeItem = (_event: React.SyntheticEvent<Element, Event>, nodeIds: string) => {
+        // row.parent = list.filter(x=> x.id === Number(nodeIds) )[0]
         row.parentId = Number(nodeIds)
     }
 
 
     const genTree = (list: IMenu[]) => {
+        if (!list || ! Array.isArray(list)) {
+            return null
+        }
         const tree = (list: IMenu[]) => list.map(x => <StyledTreeItem nodeId={String(x.id)} label={x.text} key={x.id} >
             {Array.isArray(x.children) ? tree(x.children) : null}
         </StyledTreeItem>)
