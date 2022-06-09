@@ -9,6 +9,8 @@ const _base = (url: string, config: RequestInit): Promise<any> => new Promise((r
         Authorization: 'Bearer ' + token
     } : {}
     fetch(baseUrl + url, {
+        credentials:"same-origin",
+        mode:"cors",
         ...config,
         headers: Object.assign(config?.headers || {}, auth)
     })
