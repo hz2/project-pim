@@ -41,7 +41,7 @@ export class IMenu {
     component?: string;
     icon: string = ''
     isActive: boolean = false
-    parentId: number = 0
+    pid: number = 0
     type: number = 0
     sort: number = 0
     parent!: IMenu

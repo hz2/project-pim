@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Layout from '@/components/DashboardLayout'
-import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box } from '@mui/material';
+import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box, Stack } from '@mui/material';
 import { DoneAll, Title } from '@mui/icons-material';
 import AddMenu from "./addMenu";
 import { _get, _delete, _upload } from '@/utils/service';
@@ -84,19 +84,18 @@ export default function Page() {
                 {/* Recent Orders */}
                 <Grid item xs={12}>
                     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                        <Title>Recent Orders</Title>
-                        <Table size="small">
+                        <Table size="small"    >
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Date</TableCell>
-                                    <TableCell>Name</TableCell>
-                                    <TableCell>Ship To</TableCell>
-                                    <TableCell>Payment Method</TableCell>
+                                    <TableCell>Label</TableCell>
+                                    <TableCell>Path</TableCell>
+                                    <TableCell>Component</TableCell>
+                                    <TableCell>Icon</TableCell>
                                     <TableCell align="right">delete</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {list.map((row) => (
+                                {list.length ? list.map((row) => (
                                     <TableRow key={Number(row.id)}>
                                         <TableCell>{row.text}</TableCell>
                                         <TableCell>{row.path}</TableCell>
@@ -106,12 +105,11 @@ export default function Page() {
                                             <Button color="error" onClick={() => deleteMenu(String(row.id))}>delete</Button>
                                         </TableCell>
                                     </TableRow>
-                                ))}
+                                )) : <tr>
+                                    <td>no data</td>
+                                </tr>}
                             </TableBody>
                         </Table>
-                        <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-                            See more orders
-                        </Link>
                     </Paper>
                 </Grid>
             </Grid>
