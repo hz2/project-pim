@@ -117,7 +117,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
         const form = new FormData(event.currentTarget);
         const data = formToObj(form)
         _req('/sys/menu', {
-            parentId: row.parentId,
+            pid: row.pid,
             id: row.id,
             ...data
         }).then(res => {
@@ -141,7 +141,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
 
     const chooseTreeItem = (_event: React.SyntheticEvent<Element, Event>, nodeIds: string) => {
         // row.parent = list.filter(x=> x.id === Number(nodeIds) )[0]
-        row.parentId = Number(nodeIds)
+        row.pid = Number(nodeIds)
     }
 
 
