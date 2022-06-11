@@ -15,7 +15,7 @@ import PageProvider from '@/components/PageProvider';
 
 import Copyright from '@/components/Copyright';
 import { useRouter } from 'next/router'
-import { _req } from '@/utils/service';
+import { _get, _req } from '@/utils/service';
 import { UserContext } from "@/components/PageProvider"
 
 
@@ -24,6 +24,15 @@ export default function SignInSide() {
 
   const { dispatch } = React.useContext(UserContext)
   const router = useRouter()
+
+
+  const getUser = (token: string) => {
+    _get('/api/admin/profile', { token })
+      .then((res) => {
+        window.localStorage.setItem('profile',JSON.stringify(res))
+      })
+
+  }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,11 +46,11 @@ export default function SignInSide() {
     }
     _req('/api/admin/login', p)
       .then((res) => {
-        if (!Array.isArray(res)) {
-          router.push('/dashboard')
-          dispatch({ type: "open_msg", data: '登录成功！' })
-          sessionStorage.setItem('access_token', String(res?.access_token))
-        }
+        router.push('/dashboard')
+        dispatch({ type: "open_msg", data: '登录成功！' })
+        const token = String(res?.access_token)
+        sessionStorage.setItem('access_token', token)
+        getUser(token)
       }).catch(e => {
         dispatch({ type: "open_err", data: e.message || '失败' })
       })
@@ -114,7 +123,7 @@ export default function SignInSide() {
               >
                 Sign In
               </Button>
-              <Grid container>
+              {/* <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
                     Forgot password?
@@ -125,7 +134,7 @@ export default function SignInSide() {
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
-              </Grid>
+              </Grid> */}
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
