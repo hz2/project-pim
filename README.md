@@ -1,7 +1,8 @@
-[![Build Status](https://drone.0xc8.com/api/badges/huc/projetc-pim/status.svg)](https://drone.0xc8.com/huc/projetc-pim)
+[![Build Status](https://drone.0xc8.com/api/badges/huc/project-pim/status.svg)](https://drone.0xc8.com/huc/project-pim)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/hz2/project-pim) 
+![GitHub last commit](https://img.shields.io/github/last-commit/hz2/project-pim) 
 
-
-# projetc-pim
+# project-pim
 
 Install it and run:
 
@@ -22,3 +23,10 @@ a pim system;
 
 > nest.js + typeorm + mysql + graphql
 
+
+## Flow chart
+
+```mermaid
+flowchart LR;
+    A[github push] --> B[drone pipeline] --> C[deploy to server]
+```
