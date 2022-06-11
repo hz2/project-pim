@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Layout from '@/components/DashboardLayout'
-import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box, Stack } from '@mui/material';
+import { Grid, Paper, Table, TableRow, TableHead, TableCell, TableBody, Link, Button, Box, Switch } from '@mui/material';
 import { DoneAll, Title } from '@mui/icons-material';
 import AddMenu from "./addMenu";
 import { _get, _delete, _upload } from '@/utils/service';
@@ -48,6 +48,11 @@ export default function Page() {
     const [open, setOpen] = React.useState(false);
     const [row, setRow] = React.useState(new IMenu)
 
+    const updateMenu = (row:IMenu) => {
+        setRow(row)
+        setOpen(true);
+    };
+
     const handleAdd = () => {
         setRow(new IMenu)
         setOpen(true);
@@ -89,9 +94,9 @@ export default function Page() {
                                 <TableRow>
                                     <TableCell>Label</TableCell>
                                     <TableCell>Path</TableCell>
-                                    <TableCell>Component</TableCell>
+                                    <TableCell>Active</TableCell>
                                     <TableCell>Icon</TableCell>
-                                    <TableCell align="right">delete</TableCell>
+                                    <TableCell align="right">Action</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -99,9 +104,12 @@ export default function Page() {
                                     <TableRow key={Number(row.id)}>
                                         <TableCell>{row.text}</TableCell>
                                         <TableCell>{row.path}</TableCell>
-                                        <TableCell>{row.component}</TableCell>
+                                        <TableCell>
+                                            <Switch defaultChecked={row.isActive}  disabled />
+                                        </TableCell>
                                         <TableCell>{row.icon}</TableCell>
                                         <TableCell align="right">
+                                            <Button color="info" onClick={() => updateMenu(row)}>update</Button>
                                             <Button color="error" onClick={() => deleteMenu(String(row.id))}>delete</Button>
                                         </TableCell>
                                     </TableRow>
