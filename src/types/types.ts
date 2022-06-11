@@ -35,13 +35,13 @@ export interface IAccountRow {
 }
 
 export class IMenu {
-    id: number = 0
+    id?: number = 0
     text: string = ''
     path: string = ''
     component?: string;
     icon: string = ''
     isActive: boolean = false
-    parentId: number = 0
+    pid: number = 0
     type: number = 0
     sort: number = 0
     parent!: IMenu
