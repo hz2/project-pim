@@ -1,9 +1,11 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { Paper } from '@mui/material';
+import { FormControl, FormLabel, Paper, Switch } from '@mui/material';
 import { TreeView, TreeItem } from '@mui/lab';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import FolderIcon from '@mui/icons-material/Folder';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+
 import { Checkbox, FormControlLabel, Grid, TextField } from '@mui/material';
 import { formToObj } from '@/utils/utils';
 import { _get, _req } from '@/utils/service';
@@ -17,37 +19,7 @@ import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 import { useSpring, animated } from 'react-spring';
 import { TransitionProps } from '@mui/material/transitions';
 
-function MinusSquare(props: SvgIconProps) {
-    return (
-        <SvgIcon fontSize="inherit" style={{ width: 14, height: 14 }} {...props}>
-            {/* tslint:disable-next-line: max-line-length */}
-            <path d="M22.047 22.074v0 0-20.147 0h-20.12v0 20.147 0h20.12zM22.047 24h-20.12q-.803 0-1.365-.562t-.562-1.365v-20.147q0-.776.562-1.351t1.365-.575h20.147q.776 0 1.351.575t.575 1.351v20.147q0 .803-.575 1.365t-1.378.562v0zM17.873 11.023h-11.826q-.375 0-.669.281t-.294.682v0q0 .401.294 .682t.669.281h11.826q.375 0 .669-.281t.294-.682v0q0-.401-.294-.682t-.669-.281z" />
-        </SvgIcon>
-    );
-}
 
-function PlusSquare(props: SvgIconProps) {
-    return (
-        <SvgIcon fontSize="inherit" style={{ width: 14, height: 14 }} {...props}>
-            {/* tslint:disable-next-line: max-line-length */}
-            <path d="M22.047 22.074v0 0-20.147 0h-20.12v0 20.147 0h20.12zM22.047 24h-20.12q-.803 0-1.365-.562t-.562-1.365v-20.147q0-.776.562-1.351t1.365-.575h20.147q.776 0 1.351.575t.575 1.351v20.147q0 .803-.575 1.365t-1.378.562v0zM17.873 12.977h-4.923v4.896q0 .401-.281.682t-.682.281v0q-.375 0-.669-.281t-.294-.682v-4.896h-4.923q-.401 0-.682-.294t-.281-.669v0q0-.401.281-.682t.682-.281h4.923v-4.896q0-.401.294-.682t.669-.281v0q.401 0 .682.281t.281.682v4.896h4.923q.401 0 .682.281t.281.682v0q0 .375-.281.669t-.682.294z" />
-        </SvgIcon>
-    );
-}
-
-function CloseSquare(props: SvgIconProps) {
-    return (
-        <SvgIcon
-            className="close"
-            fontSize="inherit"
-            style={{ width: 14, height: 14 }}
-            {...props}
-        >
-            {/* tslint:disable-next-line: max-line-length */}
-            <path d="M17.485 17.512q-.281.281-.682.281t-.696-.268l-4.12-4.147-4.12 4.147q-.294.268-.696.268t-.682-.281-.281-.682.294-.669l4.12-4.147-4.12-4.147q-.294-.268-.294-.669t.281-.682.682-.281.696 .268l4.12 4.147 4.12-4.147q.294-.268.696-.268t.682.281 .281.669-.294.682l-4.12 4.147 4.12 4.147q.294.268 .294.669t-.281.682zM22.047 22.074v0 0-20.147 0h-20.12v0 20.147 0h20.12zM22.047 24h-20.12q-.803 0-1.365-.562t-.562-1.365v-20.147q0-.776.562-1.351t1.365-.575h20.147q.776 0 1.351.575t.575 1.351v20.147q0 .803-.575 1.365t-1.378.562v0z" />
-        </SvgIcon>
-    );
-}
 
 function TransitionComponent(props: TransitionProps) {
     const style = useSpring({
@@ -115,13 +87,19 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
-        const data = formToObj(form)
-        _req('/sys/menu', {
+        const data = {
             pid: row.pid,
             id: row.id,
-            ...data
-        }).then(res => {
-            console.log('r ');
+            ...formToObj(form),
+            isActive: Boolean(row.isActive),
+        }
+
+        console.log('data', data);
+
+        if (data.id === 0) {
+            delete data.id
+        }
+        _req('/sys/menu', data).then(res => {
             onSuccess()
         })
 
@@ -146,7 +124,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
 
 
     const genTree = (list: IMenu[]) => {
-        if (!list || ! Array.isArray(list)) {
+        if (!list || !Array.isArray(list)) {
             return null
         }
         const tree = (list: IMenu[]) => list.map(x => <StyledTreeItem nodeId={String(x.id)} label={x.text} key={x.id} >
@@ -168,6 +146,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             autoComplete="username"
                             fullWidth
                             variant="standard"
+                            defaultValue={row.text}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -178,21 +157,35 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             label="Menu Path"
                             fullWidth
                             variant="standard"
+                            defaultValue={row.path}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <TreeView
-                            aria-label="customized"
-                            defaultExpanded={['1']}
-                            defaultCollapseIcon={<MinusSquare />}
-                            defaultExpandIcon={<PlusSquare />}
-                            defaultEndIcon={<CloseSquare />}
-                            sx={{ height: 264, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
-                            onNodeSelect={chooseTreeItem}
-                        >
-                            {genTree(list)}
-                        </TreeView>
+                        <FormControl>
+                            <FormLabel id="gender-label">Parent</FormLabel>
+                            <TreeView
+                                aria-label="customized"
+                                defaultExpanded={['1']}
+                                defaultCollapseIcon={<FolderOpenIcon />}
+                                defaultExpandIcon={<FolderIcon />}
+                                defaultEndIcon={<ArrowRightAltIcon />}
+                                sx={{ height: 264, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+                                onNodeSelect={chooseTreeItem}
+                            >
+                                {genTree(list)}
+                            </TreeView>
+                        </FormControl>
 
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <FormControl>
+                            <FormLabel id="cctive-label">Active</FormLabel>
+                            <FormControlLabel control={<Switch
+                                id="isActive" name="isActive"
+                                defaultChecked={row.isActive}
+                                onChange={({ target: { checked } }) => (row.isActive = checked)}
+                            />} label="Active" />
+                        </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
@@ -202,23 +195,6 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                             label="Menu Icon"
                             fullWidth
                             variant="standard"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
-                            id="component"
-                            name="component"
-                            label="Component"
-                            fullWidth
-                            autoComplete="shipping address-line1"
-                            variant="standard"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-                            label="Use this address for payment details"
                         />
                     </Grid>
                     <Grid container sx={{ display: 'flex', justifyContent: 'flex-end' }}>
