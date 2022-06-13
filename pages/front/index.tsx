@@ -60,6 +60,10 @@ const featuredPosts = [
 
 const posts = [post1, post2, post3];
 
+console.log('posts', posts);
+
+
+
 const sidebar = {
   title: 'About',
   description:

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@emotion/cache": "latest",
+    "@emotion/css": "^11.9.0",
     "@emotion/react": "latest",
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
@@ -20,12 +21,17 @@
     "@mui/material": "latest",
     "@mui/styles": "^5.6.1",
     "file-loader": "latest",
+    "immutable": "^4.1.0",
     "next": "latest",
+    "prismjs": "^1.28.0",
     "raw-loader": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-spring": "^9.4.5",
     "recharts": "latest",
+    "slate": "^0.81.0",
+    "slate-history": "^0.66.0",
+    "slate-react": "^0.81.0",
     "url-loader": "latest"
   },
   "devDependencies": {
