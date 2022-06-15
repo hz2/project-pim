@@ -24,6 +24,7 @@
     "raw-loader": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-quill": "^2.0.0-beta.4",
     "react-spring": "^9.4.5",
     "recharts": "latest",
     "url-loader": "latest"

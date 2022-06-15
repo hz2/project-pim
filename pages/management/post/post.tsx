@@ -1,8 +1,21 @@
-import React, { useEffect, useRef } from 'react';
+import * as React from 'react';
+import { Grid, Paper } from '@mui/material';
+import dynamic from 'next/dynamic'
+import Layout from '@/components/DashboardLayout'
 
-export default function App() {
-  
+const DynamicComponent = dynamic(() =>
+  import('./postEditor'),
+  { ssr: false }
+)
+
+function Home() {
   return (
-    <textarea id="mytextarea">Hello, World!</textarea>
-  );
+    <Layout>
+      <Paper>
+      <DynamicComponent />
+      </Paper>
+    </Layout>
+  )
 }
+
+export default Home
