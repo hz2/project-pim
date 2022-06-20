@@ -12,9 +12,6 @@ import FeaturedPost from './FeaturedPost';
 import Main from './Main';
 import Sidebar from './Sidebar';
 import Footer from '@/components/Footer';
-import post1 from './blog-post.1.md';
-import post2 from './blog-post.2.md';
-import post3 from './blog-post.3.md';
 import { _req } from '@/utils/service';
 
 const sections = [
@@ -58,11 +55,7 @@ const featuredPosts = [
   },
 ];
 
-const posts = [post1, post2, post3];
-
-console.log('posts', posts);
-
-
+const posts:string[] = [ ];
 
 const sidebar = {
   title: 'About',
