@@ -11,7 +11,6 @@ interface MainProps {
 
 export default function Main(props: MainProps) {
   const { posts, title } = props;
-
   return (
     <Grid
       item
@@ -28,7 +27,7 @@ export default function Main(props: MainProps) {
       </Typography>
       <Divider />
       {posts?.map((post) => (
-        <Markdown className="markdown" key={post.substring(0, 40)}>
+        <Markdown className="markdown" key={post?.substring(0, 40)}>
           {post}
         </Markdown>
       ))}
