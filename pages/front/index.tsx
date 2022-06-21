@@ -12,7 +12,7 @@ import FeaturedPost from './FeaturedPost';
 import Main from './Main';
 import Sidebar from './Sidebar';
 import Footer from '@/components/Footer';
-import { _req } from '@/utils/service';
+import { _get, _req } from '@/utils/service';
 
 const sections = [
   { title: 'Technology', url: '#' },
@@ -55,8 +55,6 @@ const featuredPosts = [
   },
 ];
 
-const posts:string[] = [ ];
-
 const sidebar = {
   title: 'About',
   description:
@@ -81,10 +79,29 @@ const sidebar = {
   ],
 };
 
+  
+  
+interface IPost {
+  updated: string;
+  content: string;
+  image: string;
+  imageLabel: string;
+  title: string;
+}
 
 export default function Blog() {
-  // _req('/qqqq', {})
+  const [posts,setPosts] = React.useState<IPost[]>([])
 
+  React.useEffect(()=>{
+    getList()
+
+  },[])
+
+  const getList = () => {
+    _get('/sys/post').then(res => {
+      setPosts(res.map(x=>x.content))
+    })
+  }
   return (
     <PageProvider>
       <CssBaseline />
@@ -98,7 +115,7 @@ export default function Blog() {
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Main title="From the firehose" posts={posts} />
+            <Main title="Posts" posts={posts} />
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
