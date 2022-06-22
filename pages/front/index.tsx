@@ -36,25 +36,6 @@ const mainFeaturedPost = {
   linkText: 'Continue reading…',
 };
 
-const featuredPosts = [
-  {
-    title: 'Featured post',
-    date: 'Nov 12',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageLabel: 'Image Text',
-  },
-  {
-    title: 'Post title',
-    date: 'Nov 11',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageLabel: 'Image Text',
-  },
-];
-
 const sidebar = {
   title: 'About',
   description:
@@ -89,8 +70,27 @@ interface IPost {
   title: string;
 }
 
+
+const featuredPosts:IPost[] = [
+  {
+    title: 'Featured post',
+    updated: 'Nov 12',
+    content:
+      'This is a wider card with supporting text below as a natural lead-in to additional content.',
+    image: 'https://source.unsplash.com/random',
+    imageLabel: 'Image Text',
+  },
+  {
+    title: 'Post title',
+    updated: 'Nov 11',
+    content:
+      'This is a wider card with supporting text below as a natural lead-in to additional content.',
+    image: 'https://source.unsplash.com/random',
+    imageLabel: 'Image Text',
+  },
+];
 export default function Blog() {
-  const [posts,setPosts] = React.useState<IPost[]>([])
+  const [posts,setPosts] = React.useState<string[]>([])
 
   React.useEffect(()=>{
     getList()
@@ -99,7 +99,7 @@ export default function Blog() {
 
   const getList = () => {
     _get('/sys/post').then(res => {
-      setPosts(res.map(x=>x.content))
+      setPosts(res.map((x:IPost)=>x.content))
     })
   }
   return (
