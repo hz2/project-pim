@@ -60,8 +60,8 @@ const sidebar = {
   ],
 };
 
-  
-  
+
+
 interface IPost {
   updated: string;
   content: string;
@@ -70,8 +70,17 @@ interface IPost {
   title: string;
 }
 
+interface IRemotePost {
 
-const featuredPosts:IPost[] = [
+  content: string
+  title: string
+  tags: string
+  categories: string
+  updated: string
+}
+
+
+const featuredPosts: IPost[] = [
   {
     title: 'Featured post',
     updated: 'Nov 12',
@@ -90,16 +99,16 @@ const featuredPosts:IPost[] = [
   },
 ];
 export default function Blog() {
-  const [posts,setPosts] = React.useState<string[]>([])
+  const [posts, setPosts] = React.useState<IRemotePost[]>([])
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     getList()
 
-  },[])
+  }, [])
 
   const getList = () => {
     _get('/sys/post').then(res => {
-      setPosts(res.map((x:IPost)=>x.content))
+      setPosts(res)
     })
   }
   return (
