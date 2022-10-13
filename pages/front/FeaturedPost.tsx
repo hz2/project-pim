@@ -8,8 +8,8 @@ import CardMedia from '@mui/material/CardMedia';
 
 interface FeaturedPostProps {
   post: {
-    date: string;
-    description: string;
+    updated: string;
+    content: string;
     image: string;
     imageLabel: string;
     title: string;
@@ -28,10 +28,10 @@ export default function FeaturedPost(props: FeaturedPostProps) {
               {post?.title}
             </Typography>
             <Typography variant="subtitle1" color="text.secondary">
-              {post?.date}
+              {post?.updated}
             </Typography>
             <Typography variant="subtitle1" paragraph>
-              {post?.description}
+              {post?.content}
             </Typography>
             <Typography variant="subtitle1" color="primary">
               Continue reading...

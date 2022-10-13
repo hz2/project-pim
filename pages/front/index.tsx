@@ -12,7 +12,7 @@ import FeaturedPost from './FeaturedPost';
 import Main from './Main';
 import Sidebar from './Sidebar';
 import Footer from '@/components/Footer';
-import { _req } from '@/utils/service';
+import { _get, _req } from '@/utils/service';
 
 const sections = [
   { title: 'Technology', url: '#' },
@@ -35,27 +35,6 @@ const mainFeaturedPost = {
   imageText: 'main image description',
   linkText: 'Continue reading…',
 };
-
-const featuredPosts = [
-  {
-    title: 'Featured post',
-    date: 'Nov 12',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageLabel: 'Image Text',
-  },
-  {
-    title: 'Post title',
-    date: 'Nov 11',
-    description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://source.unsplash.com/random',
-    imageLabel: 'Image Text',
-  },
-];
-
-const posts:string[] = [ ];
 
 const sidebar = {
   title: 'About',
@@ -82,9 +61,56 @@ const sidebar = {
 };
 
 
-export default function Blog() {
-  // _req('/qqqq', {})
 
+interface IPost {
+  updated: string;
+  content: string;
+  image: string;
+  imageLabel: string;
+  title: string;
+}
+
+interface IRemotePost {
+
+  content: string
+  title: string
+  tags: string
+  categories: string
+  updated: string
+}
+
+
+const featuredPosts: IPost[] = [
+  {
+    title: 'Featured post',
+    updated: 'Nov 12',
+    content:
+      'This is a wider card with supporting text below as a natural lead-in to additional content.',
+    image: 'https://source.unsplash.com/random',
+    imageLabel: 'Image Text',
+  },
+  {
+    title: 'Post title',
+    updated: 'Nov 11',
+    content:
+      'This is a wider card with supporting text below as a natural lead-in to additional content.',
+    image: 'https://source.unsplash.com/random',
+    imageLabel: 'Image Text',
+  },
+];
+export default function Blog() {
+  const [posts, setPosts] = React.useState<IRemotePost[]>([])
+
+  React.useEffect(() => {
+    getList()
+
+  }, [])
+
+  const getList = () => {
+    _get('/sys/post').then(res => {
+      setPosts(res)
+    })
+  }
   return (
     <PageProvider>
       <CssBaseline />
@@ -98,7 +124,7 @@ export default function Blog() {
             ))}
           </Grid>
           <Grid container spacing={5} sx={{ mt: 3 }}>
-            <Main title="From the firehose" posts={posts} />
+            <Main title="Posts" posts={posts} />
             <Sidebar
               title={sidebar.title}
               description={sidebar.description}
