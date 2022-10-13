@@ -2,10 +2,9 @@ import * as React from 'react';
 import { Box, Button, Grid, Paper } from '@mui/material';
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css';
-import './post.less';
 import Layout from '@/components/DashboardLayout'
 import { _get } from '@/utils/service';
-import { padding } from '@mui/system';
+import style from "./post.module.css";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -52,7 +51,7 @@ function Post() {
 
   return (
     <Layout>
-      <Paper>
+      <Paper >
         <Box component="span" sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
           <Button variant="contained" sx={{ mr: 2 }} onClick={saveArticle}>Publish</Button>
           <Button variant="contained" color="warning" onClick={saveArticle}>Draft</Button>
@@ -60,6 +59,7 @@ function Post() {
         <ReactQuill theme="snow"
           modules={modules}
           formats={formats} value={value} onChange={setValue}
+          className={style['editor-container']}
           style={{
             padding: '0 10px',
             height: '600px'
