@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css';
 import Layout from '@/components/DashboardLayout'
 import { _get } from '@/utils/service';
-import style from "./post.module.css";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -59,7 +58,6 @@ function Post() {
         <ReactQuill theme="snow"
           modules={modules}
           formats={formats} value={value} onChange={setValue}
-          className={style['editor-container']}
           style={{
             padding: '0 10px',
             height: '600px'
