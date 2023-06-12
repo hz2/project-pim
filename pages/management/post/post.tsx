@@ -50,7 +50,7 @@ function Post() {
 
   return (
     <Layout>
-      <Paper >
+      <Paper className='post-page'>
         <Box component="span" sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
           <Button variant="contained" sx={{ mr: 2 }} onClick={saveArticle}>Publish</Button>
           <Button variant="contained" color="warning" onClick={saveArticle}>Draft</Button>
