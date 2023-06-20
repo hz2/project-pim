@@ -1,5 +1,6 @@
-import { Box, Container, Link } from "@mui/material";
+import { Box, Container, Link, Typography } from "@mui/material";
 import Footer from "./Footer";
+
 
 const footerItem = {
     display: "inline-block",
@@ -11,10 +12,12 @@ const footerItem = {
 const NewHome = () => {
     return (
         <Container >
-            <h2>
-                <Link href="/dashboard">← Back to home</Link>
-            </h2>
-            <Box sx={{ display: 'grid', placeItems: "center" }}>
+            <Container sx={{ px: "20px", py: "40px", color: "rgb(98, 95, 99)", textAlign: "center" }}>
+                <h2>Get Connected</h2>
+                <Typography >Don't just stand on the sidelines—be part of 0xc8 ’s vision. Collaborate, brainstorm, or simply exchange ideas. Let’s unleash our creative potential together.</Typography>
+                <Typography sx={{ bgcolor: "#625f63", fontFamily: "monospace", borderRadius: "8px", my: "25px", py: "10px", px: "20px", display: "inline-block", color: "#fff" }}>Contact</Typography>
+            </Container>
+            <Container sx={{ display: 'grid', placeItems: "center", px: "20px", py: "40px" }}>
                 <Box sx={{ display: "flex" }}>
                     <Box sx={footerItem}>
                         <svg viewBox="0 0 200 200" fill="none" >
@@ -41,11 +44,11 @@ const NewHome = () => {
                         </svg>
                     </Box>
                 </Box>
-            </Box>
-            <Footer
-                title="Footer"
-                description="Something here to give the footer a purpose!"
-            />
+                <Footer
+                    title="Footer"
+                    description="Something here to give the footer a purpose!"
+                />
+            </Container>
         </Container>
     );
 };
