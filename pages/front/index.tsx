@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import ShareTwoToneIcon from '@mui/icons-material/ShareTwoTone';
 import PageProvider from '@/components/PageProvider';
 import Header from './Header';
 import MainFeaturedPost from './MainFeaturedPost';
@@ -50,7 +50,7 @@ const sidebar = {
   ],
   social: [
     { name: 'GitHub', icon: GitHubIcon },
-    { name: 'Twitter', icon: TwitterIcon, link: 'https://twitter.com/i/communities/1499404458593120260' },
+    { name: 'Mastodon', rel: "me", icon: ShareTwoToneIcon, link: "https://mastodon.online/@hz1d" },
     { name: 'Telegram', icon: TelegramIcon, link: "https://t.me/+Rndvi8-IksNhYTQx" },
   ],
   links: [
@@ -59,7 +59,6 @@ const sidebar = {
     { title: 'Drone CI', url: 'https://drone.0xc8.com' }
   ],
 };
-
 
 
 interface IPost {
