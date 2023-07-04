@@ -14,7 +14,7 @@ const NewHome = () => {
         <Container >
             <Container sx={{ px: "20px", py: "40px", color: "rgb(98, 95, 99)", textAlign: "center" }}>
                 <h2>Get Connected</h2>
-                <Typography >Don't just stand on the sidelines—be part of 0xc8 ’s vision. Collaborate, brainstorm, or simply exchange ideas. Let’s unleash our creative potential together.</Typography>
+                <Typography >Don&apos;t just stand on the sidelines—be part of 0xc8 ‘s vision. Collaborate, brainstorm, or simply exchange ideas. Let’s unleash our creative potential together.</Typography>
                 <Typography sx={{ bgcolor: "#625f63", fontFamily: "monospace", borderRadius: "8px", my: "25px", py: "10px", px: "20px", display: "inline-block", color: "#fff" }}>Contact</Typography>
             </Container>
             <Container sx={{ display: 'grid', placeItems: "center", px: "20px", py: "40px" }}>

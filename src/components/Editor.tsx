@@ -10,7 +10,7 @@ import { _upload } from '@/utils/service';
 
 
 const Editor = () => {
-    const [quillInt, setQuillInt] = useState<typeof Quill | null>(null)
+    const [quillInt, setQuillInt] = useState<Quill | null>(null)
     const initEditor = () => {
         Quill.register('modules/imageCompress', ImageCompress);
         Quill.register("modules/blotFormatter", BlotFormatter);
@@ -43,13 +43,13 @@ const Editor = () => {
                     imageType: 'image/jpeg', // default
                     debug: true, // default
                     suppressErrorLogging: false, // default
-                    insertIntoEditor: (_imageBase64URL: string, imageBlob: string | Blob, editor: typeof Quill) => {
+                    insertIntoEditor: (_imageBase64URL: string, imageBlob: string | Blob, editor: Quill) => {
                         const formData = new FormData();
                         formData.append("image", imageBlob);
                         _upload('/file-upload/single', formData).then(r => {
                             const link: string = r?.image_url || ''
                             const range = editor.getSelection();
-                            editor.insertEmbed(range.index, "image", link, "user");
+                            editor.insertEmbed(range?.index||0, "image", link, "user");
                         })
                             .catch(error => {
                                 console.error(error);
@@ -79,7 +79,7 @@ const Editor = () => {
             (initEditor())
         }
         return setQuillInt(null)
-    }, [])
+    }, [quillInt])
 
 
     return <Box className="container" id="scrolling-container">
