@@ -24,12 +24,12 @@
     "quill-image-compress": "^1.2.30",
     "react": "latest",
     "react-dom": "latest",
-    "react-quill": "^2.0.0",
     "react-spring": "latest",
     "recharts": "latest"
   },
   "devDependencies": {
     "@types/node": "latest",
+    "@types/quill": "latest",
     "@types/react": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",

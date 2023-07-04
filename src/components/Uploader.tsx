@@ -1,9 +1,7 @@
 import React from 'react'
-import { makeStyles } from '@mui/styles';
 import { Box, Typography } from '@mui/material';
 import Image from 'next/image'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import clsx from 'clsx'
 import { _upload } from '@/utils/service';
 interface UploaderProps {
     value?: string
@@ -18,7 +16,7 @@ interface UploaderProps {
 }
 
 
-const useStyle = makeStyles({
+const useStyle = {
     root: {
         cursor: 'pointer',
         textAlign: 'center',
@@ -37,19 +35,6 @@ const useStyle = makeStyles({
             opacity: 0.3,
         },
     },
-    noMouseEvent: {
-        pointerEvents: 'none',
-    },
-    iconText: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        alignItems: 'center',
-        position: 'absolute',
-    },
-    hidden: {
-        display: 'none',
-    },
     onDragOver: {
         '& img': {
             opacity: 0.3,
@@ -58,7 +43,7 @@ const useStyle = makeStyles({
             opacity: 1,
         },
     },
-})
+}
 
 export const FileUpload: React.FC<UploaderProps> = ({
     value: url = '',
@@ -72,7 +57,6 @@ export const FileUpload: React.FC<UploaderProps> = ({
     backgroundColor = '#fff'
 }) => {
 
-    const classes = useStyle()
     const [imageUrl, setImageUrl] = React.useState(url)
     const [labelText, setLabelText] = React.useState<string>(hoverLabel)
     const [isDragOver, setIsDragOver] = React.useState<boolean>(false)
@@ -137,7 +121,7 @@ export const FileUpload: React.FC<UploaderProps> = ({
             <input
                 onChange={handleChange}
                 accept={accept}
-                className={classes.hidden}
+                style={{ display: 'none' }}
                 id="file-upload"
                 type="file"
             />
@@ -145,13 +129,13 @@ export const FileUpload: React.FC<UploaderProps> = ({
             <label
                 htmlFor="file-upload"
                 {...dragEvents}
-                className={clsx(classes.root, isDragOver && classes.onDragOver)}
+                // className={clsx(classes.root, isDragOver && classes.onDragOver)}
             >
                 <Box
                     width={width}
                     height={height}
                     bgcolor={backgroundColor}
-                    className={classes.noMouseEvent}
+                    sx={{ pointerEvents: 'none' }}
                 >
                     {imageButton && imageUrl && (
                         <Box position="absolute" height={height} width={width}>
@@ -160,8 +144,8 @@ export const FileUpload: React.FC<UploaderProps> = ({
                                 alt="file upload"
                                 objectFit='cover'
                                 src={imageUrl}
-                                height={height}
-                                width={width}
+                                height={Number(height)}
+                                width={Number(width)}
                             />
                         </Box>
                     )}
@@ -172,7 +156,13 @@ export const FileUpload: React.FC<UploaderProps> = ({
                                 height={height}
                                 width={width}
                                 color="#666"
-                                className={classes.iconText}
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    position: 'absolute',
+                                }}
                             >
                                 <CloudUploadIcon fontSize="large" />
                                 <Typography>{labelText}</Typography>

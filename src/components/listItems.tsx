@@ -11,6 +11,7 @@ import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import Link from 'next/link';
 import { _get, _req } from '@/utils/service';
+import { ReactNode } from 'react';
 
 
 
@@ -39,12 +40,7 @@ export const MenuListAll = () => {
     }
     fetchData();
   }, []);
-  return <div>{items}</div>
-
-
-
-
-
+  return <div>{items as ReactNode}</div>
 
 }
 
