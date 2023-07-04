@@ -19,6 +19,7 @@ interface SidebarProps {
     icon: React.ElementType;
     name: string;
     link?: string;
+    rel?: string;
   }>;
   title: string;
 }
@@ -59,6 +60,7 @@ export default function Sidebar(props: SidebarProps) {
           variant="body1"
           href={network.link || '#'}
           key={network.name}
+          rel={network.rel}
           sx={{ mb: 0.5 }}
         >
           <Stack direction="row" spacing={1} alignItems="center">
