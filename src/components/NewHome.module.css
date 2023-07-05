@@ -1,0 +1,19 @@
+.contactItemBtn {
+    background-color: #625f63;
+    font-family: monospace;
+    border-radius: 8px;
+    padding: 2px 15px;
+    display: inline-flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 10px 12px;
+}
+.contactItemBtn:hover {
+    opacity: .7;
+}
+.contactItemBtn:active {
+    opacity: .85;
+}
