@@ -11,9 +11,20 @@
     font-weight: 500;
     margin: 10px 12px;
 }
+
 .contactItemBtn:hover {
     opacity: .7;
 }
+
 .contactItemBtn:active {
     opacity: .85;
+}
+
+@media (max-width: 780px) {
+
+    .contactItemBtn {
+        width: 85%;
+        font-weight: bold;
+        justify-content: center;
+    }
 }
