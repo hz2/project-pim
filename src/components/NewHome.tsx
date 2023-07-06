@@ -6,7 +6,7 @@ import Public from '@mui/icons-material/Public';
 import Share from '@mui/icons-material/Share';
 import { Stack } from '@mui/material';
 import styles from './NewHome.module.css';
-import { footerItemList } from "./NewHomeIcons";
+import { footerItemList, shapeItemList } from "./NewHomeIcons";
 
 const Linkmap = [
     { name: 'GitHub', icon: GitHubIcon },
@@ -17,11 +17,22 @@ const Linkmap = [
 const NewHome = () => {
     return (
         <Container >
+            <Container sx={{ display: 'grid', placeItems: "center", px: "20px", py: "40px" }}>
+                {/* style="background:rgb(242, 242, 242);transform:rotate(0deg);display:block" */}
+                <Box sx={{ display: "flex", flexWrap: "wrap", width: "80%" }}>
+                    {
+                        shapeItemList.map((El, i) => <SvgIcon key={i + '_shapeitem'} sx={{
+                            width: 1 / 4,
+                            height: 1 / 4,
+                            bgcolor: "rgb(242, 242, 242)"
+                        }}>{El}</SvgIcon>)
+                    } </Box>
+            </Container>
             <Container sx={{ px: "20px", py: "40px", color: "rgb(98, 95, 99)", textAlign: "center" }}>
                 <h2>Get Connected</h2>
                 <Typography >Don&apos;t just stand on the sidelines—be part of 0xc8 ‘s vision. Collaborate, brainstorm, or simply exchange ideas. Let’s unleash our creative potential together.</Typography>
                 {/* <Typography sx={{ }}>Contact</Typography> */}
-                <Stack sx={{ pt: 2 }} direction="row" alignItems="center" justifyContent="center">
+                <Stack sx={{ pt: 2 }} direction="row" alignItems="center" flexWrap="wrap" justifyContent="center">
                     {
                         Linkmap.map(x =>
                             <Link

@@ -23,7 +23,7 @@
 @media (max-width: 780px) {
 
     .contactItemBtn {
-        width: 85%;
+        width: 85vw;
         font-weight: bold;
         justify-content: center;
     }

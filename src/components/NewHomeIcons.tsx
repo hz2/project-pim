@@ -1,6 +1,6 @@
 
 export const footerItemList = [
-     <svg viewBox="0 0 200 200" fill="none" >
+    <svg viewBox="0 0 200 200" fill="none" >
         <path d="M200 100L0 0V200L200 100Z" fill="rgb(98, 95, 99)"></path>
     </svg>,
     <svg viewBox="0 0 200 200" fill="none" >
@@ -16,3 +16,11 @@ export const footerItemList = [
     </svg>
 
 ]
+
+export const shapeItemList = [
+    <svg viewBox="0 0 200 200" fill="none" ><path d="M200 100C200 155.228 155.228 200 100 200C44.7715 200 0 155.228 0 100C0 44.7715 44.7715 0 100 0C155.228 0 200 44.7715 200 100Z" fill="rgb(122,118,122)"></path><circle cx="24" cy="24" r="24" transform="matrix(1 0 0 -1 76 124)" fill="rgb(98, 95, 99)"></circle></svg>,
+    <svg viewBox="0 0 200 200" fill="none" ><path opacity="0.5" d="M200 200L200 3.49691e-05L-4.45153e-06 200L200 200Z" fill="rgb(122,118,122)"></path><path opacity="0.5" d="M-8.74228e-06 200L200 200L0 -8.74228e-06L-8.74228e-06 200Z" fill="rgb(98, 95, 99)"></path></svg>,
+    <svg viewBox="0 0 200 200" fill="none" ><path fillRule="evenodd" clipRule="evenodd" d="M200 200V0C89.543 0 0 89.5431 0 200H200Z" fill="rgb(122,118,122)"></path></svg>,
+    <svg viewBox="0 0 200 200" fill="none" ><rect width="100" height="100" x="100" fill="rgb(122,118,122)"></rect><rect x="0" y="100" width="100" height="100" fill="rgb(98, 95, 99)"></rect></svg>,
+]
+
