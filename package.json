@@ -3,7 +3,7 @@
   "version": "5.0.0",
   "private": true,
   "scripts": {
-    "dev": "nvm use && PORT=4000 next dev",
+    "dev": "nvm use & PORT=4000 next dev",
     "build": "next build",
     "export": "next build && next export",
     "start": "next start",
