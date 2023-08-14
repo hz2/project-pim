@@ -61,6 +61,12 @@ const NewHome = () => {
 
     return (
         <div >
+            <Box sx={{ backgroundImage: "url(https://m.0xc8.com/main/meta/BCPFd4Zjg8M2cBxc00XKr34icXQ.webp)", backgroundSize: 'cover', backgroundPosition: 'center', width: '100vw', height: '100vh', mixBlendMode: 'luminosity' ,py: '20px',}}>
+                <Box sx={{ fontSize: 48, fontWeight: 700, color: '#fff', textAlign: 'center' }}>
+                    <p>Innovation demands bravery. Risk to challenge.</p>
+                    <p>Revolutionize The Digital Voyage.</p>
+                </Box>
+            </Box>
             <Container sx={{ bgcolor: "#625f63", p: "50px" }}>
                 <Box sx={{ display: "flex", flexWrap: "wrap", width: "80%" }}>
                     {
@@ -90,8 +96,8 @@ const NewHome = () => {
                     } </Box>
             </Container>
             <Container sx={{ px: "20px", py: "40px", color: "rgb(98, 95, 99)", textAlign: "center" }}>
-                <h2>Get Connected</h2>
-                <Typography >Don&apos;t just stand on the sidelines—be part of 0xc8 ‘s vision. Collaborate, brainstorm, or simply exchange ideas. Let’s unleash our creative potential together.</Typography>
+                <h1>Get Connected</h1>
+                <Typography sx={{ px: "60px" }}>Don&apos;t just stand on the sidelines—be part of 0xc8 ‘s vision. Collaborate, brainstorm, or simply exchange ideas. Let’s unleash our creative potential together.</Typography>
                 {/* <Typography sx={{ }}>Contact</Typography> */}
                 <Stack sx={{ pt: 2 }} direction="row" alignItems="center" flexWrap="wrap" justifyContent="center">
                     {
