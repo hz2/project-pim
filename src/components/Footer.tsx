@@ -24,6 +24,7 @@ export default function Footer(props: FooterProps) {
           align="center"
           color="text.secondary"
           component="p"
+          fontStyle="italic"
         >
           {description}
         </Typography>

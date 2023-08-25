@@ -24,20 +24,20 @@ const NewHome = () => {
 
     const [statusList, _setStatusList] = useState<IRow[]>([
         {
-            title: 'POST 1 Title',
-            date: '2023-07',
+            title: 'Creative Design',
+            text: 'Envision extraordinary digital landscapes with a user-first approach.'
         },
         {
-            title: 'POST 2 Title',
-            date: '2023-07',
+            title: 'Philosophy & Humanities',
+            text: 'Awaken your mind’s curiosity, embracing the questions that define us.'
         },
         {
-            title: 'POST 3 Title',
-            date: '2023-07',
+            title: 'Abstract Construction',
+            text: 'Unleash your programming prowess and shape the digital world around you.'
         },
         {
-            title: 'POST 4 Title',
-            date: '2023-07',
+            title: 'Photographic Portfolio',
+            text: 'Unveil your creativity with stunning visuals that tell a story.'
         },
     ])
 
@@ -61,29 +61,28 @@ const NewHome = () => {
 
     return (
         <div >
-            <Box sx={{ backgroundImage: "url(https://m.0xc8.com/main/meta/BCPFd4Zjg8M2cBxc00XKr34icXQ.webp)", backgroundSize: 'cover', backgroundPosition: 'center', width: '100vw', height: '100vh', mixBlendMode: 'luminosity' ,py: '20px',}}>
-                <Box sx={{ fontSize: 48, fontWeight: 700, color: '#fff', textAlign: 'center' }}>
+            <Box sx={{ backgroundImage: "url(https://m.0xc8.com/main/meta/BCPFd4Zjg8M2cBxc00XKr34icXQ.webp)", backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '90vh', mixBlendMode: 'luminosity', py: '20px', }}>
+                <Box sx={{ fontSize: 48, fontWeight: 700, color: '#fff', textAlign: 'center', p: "20px" }}>
                     <p>Innovation demands bravery. Risk to challenge.</p>
                     <p>Revolutionize The Digital Voyage.</p>
                 </Box>
             </Box>
-            <Container sx={{ bgcolor: "#625f63", p: "50px" }}>
-                <Box sx={{ display: "flex", flexWrap: "wrap", width: "80%" }}>
-                    {
-                        statusList.map((x, i) => <Box key={i + '_statuslist'} sx={{
-                            color: "#fff",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center"
-                        }}>
-                            <div className="title">{x.title}</div>
-                            <div className="date">{x.date}</div>
-                            {/* <div className="content" dangerouslySetInnerHTML={{ __html: x.content }}></div>
-                            <div className="content" >{dateToYM(x.created_at)}</div> */}
-
-                        </Box>)
-                    } </Box>
-            </Container>
+            <Box sx={{ bgcolor: "#625f63" }}>
+                <Container sx={{ width: "80%", color: "#fff", px: "20px", py: "40px" }}>
+                    <Typography sx={{ fontSize: 48, fontWeight: 800, py: "20px" }}>Capture the World</Typography>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "20px", pb:"40px" }}>
+                        {
+                            statusList.map((x, i) => <Box key={i + '_statuslist'} sx={{
+                                width: "45%",
+                                minWidth: "350px",
+                                pr: "40px"
+                            }}>
+                                <Typography sx={{ fontSize: "32px", fontWeight: 600, my: "12px" }}>{x.title}</Typography>
+                                <Typography sx={{ fontSize: "16px", my: "10px" }} >{x.text}</Typography>
+                            </Box>)
+                        } </Box>
+                </Container>
+            </Box>
             <Container sx={{ display: 'grid', placeItems: "center", px: "20px", py: "40px" }}>
                 {/* style="background:rgb(242, 242, 242);transform:rotate(0deg);display:block" */}
                 <Box sx={{ display: "flex", flexWrap: "wrap", width: "80%" }}>
@@ -97,7 +96,7 @@ const NewHome = () => {
             </Container>
             <Container sx={{ px: "20px", py: "40px", color: "rgb(98, 95, 99)", textAlign: "center" }}>
                 <h1>Get Connected</h1>
-                <Typography sx={{ px: "60px" }}>Don&apos;t just stand on the sidelines—be part of 0xc8 ‘s vision. Collaborate, brainstorm, or simply exchange ideas. Let’s unleash our creative potential together.</Typography>
+                <Typography sx={{ px: "60px" }}>Don&apos;t just stand on the sidelines —— be part of our vision. Collaborate, brainstorm, or simply exchange ideas. Let’s unleash our creative potential together.</Typography>
                 {/* <Typography sx={{ }}>Contact</Typography> */}
                 <Stack sx={{ pt: 2 }} direction="row" alignItems="center" flexWrap="wrap" justifyContent="center">
                     {
@@ -126,8 +125,8 @@ const NewHome = () => {
                         }}>{El}</SvgIcon>)
                     } </Box>
                 <Footer
-                    title="Footer"
-                    description="Something here to give the footer a purpose!"
+                    title="Loosen up"
+                    description="The unexamined life is not worth living"
                 />
             </Container>
         </div >
