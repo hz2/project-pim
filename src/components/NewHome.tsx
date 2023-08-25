@@ -1,4 +1,4 @@
-import { Box, Container, Link, SvgIcon, Typography, createSvgIcon } from "@mui/material";
+import { Box, Container, Link, SvgIcon, Typography } from "@mui/material";
 import Footer from "./Footer";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import TelegramIcon from '@mui/icons-material/Telegram';
@@ -40,6 +40,17 @@ const NewHome = () => {
             text: 'Unveil your creativity with stunning visuals that tell a story.'
         },
     ])
+    const [imgList, _setImgList] = useState<IRow[]>([
+        {
+            title: 'Craft Sophisticated  Fusion',
+            img: 'https://m.0xc8.com/main/meta/JGf4udXgHGhkTRenAP8OdRIV34.jpg'
+        },
+        {
+            title: 'Engage Your Mind and Soul',
+            img: 'https://m.0xc8.com/main/meta/ctvsrEU2pO3iNdLPaPnHcOCfJrE.webp'
+        }
+    ])
+    // JscafcN4Um9htcM2KkY6p29Cw4.jpg
 
     // const getTimeLine = () => {
     //     fetch('https://mastodon.social/api/v1/accounts/287193/statuses')
@@ -53,24 +64,48 @@ const NewHome = () => {
     // }, [])
 
 
-    const dateToYM = (date: string) => {
-        const dateObj = new Date(date);
-        return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`
+    // const dateToYM = (date: string) => {
+    //     const dateObj = new Date(date);
+    //     return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`
 
-    }
+    // }
 
     return (
         <div >
-            <Box sx={{ backgroundImage: "url(https://m.0xc8.com/main/meta/BCPFd4Zjg8M2cBxc00XKr34icXQ.webp)", backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '90vh', mixBlendMode: 'luminosity', py: '20px', }}>
+            <Box sx={{ backgroundImage: "url(https://m.0xc8.com/main/meta/BCPFd4Zjg8M2cBxc00XKr34icXQ.webp)", backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '95vh', mixBlendMode: 'luminosity', py: '40px', }}>
                 <Box sx={{ fontSize: 48, fontWeight: 700, color: '#fff', textAlign: 'center', p: "20px" }}>
                     <p>Innovation demands bravery. Risk to challenge.</p>
                     <p>Revolutionize The Digital Voyage.</p>
                 </Box>
             </Box>
+            <Container sx={{ width: "80%", px: "10px", py: "40px" }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between", gap: "20px", pb: "40px" }}>
+                    {
+                        imgList.map((x, i) => <Box key={i + '_statuslist'} sx={{
+                            width: "50%",
+                        }}>
+
+                            <Box
+                                component="img"
+                                sx={{
+                                    aspectRatio: "1/1",
+                                    width: "100%",
+                                    objectFit: "cover",
+                                    mixBlendMode: 'luminosity',
+                                    overflow: "hidden",
+                                    borderRadius: "20px",
+                                }}
+                                alt={x?.title}
+                                src={x?.img}
+                            />
+                            <Typography sx={{ fontSize: "32px", fontWeight: 600, my: "12px" }}>{x.title}</Typography>
+                        </Box>)
+                    } </Box>
+            </Container>
             <Box sx={{ bgcolor: "#625f63" }}>
                 <Container sx={{ width: "80%", color: "#fff", px: "20px", py: "40px" }}>
                     <Typography sx={{ fontSize: 48, fontWeight: 800, py: "20px" }}>Capture the World</Typography>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "20px", pb:"40px" }}>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "20px", pb: "40px" }}>
                         {
                             statusList.map((x, i) => <Box key={i + '_statuslist'} sx={{
                                 width: "45%",
