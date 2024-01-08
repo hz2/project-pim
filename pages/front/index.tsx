@@ -135,8 +135,8 @@ export default function Blog() {
         </main>
       </Container>
       <Footer
-        title="Footer"
-        description="Something here to give the footer a purpose!"
+        title="Loosen up"
+        description="The unexamined life is not worth living"
       />
     </PageProvider>
   );

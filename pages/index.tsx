@@ -15,20 +15,20 @@ const Home: NextPage = () => {
     // if (!token) {
     //   router.push('/sign-in')
     // } else {
-    router.push('/front')
+    // router.push('/front')
     // }
   }, [router])
   return (
-    // <NewHome />
-    <Container >
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={true}
-        onClick={() => false}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    </Container>
+    <NewHome />
+    // <Container >
+    //   <Backdrop
+    //     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    //     open={true}
+    //     onClick={() => false}
+    //   >
+    //     <CircularProgress color="inherit" />
+    //   </Backdrop>
+    // </Container>
   );
 };
 
