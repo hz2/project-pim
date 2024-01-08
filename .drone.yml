@@ -21,7 +21,7 @@ steps:
     path: /host-dist
   commands:
   - npm install
-  - npm run export
+  - npm run build
   - rm -rf /host-dist/* && cp -r ./out/* /host-dist
 
 trigger:
