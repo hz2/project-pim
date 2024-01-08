@@ -13,12 +13,11 @@ import { UserContext } from "@/components/PageProvider"
 import { IMenu } from "@/types/types";
 
 import { alpha, styled } from '@mui/material/styles';
-import { TreeItemProps, treeItemClasses } from '@mui/lab/TreeItem';
+import { TreeItemProps } from '@mui/lab/TreeItem';
 import Collapse from '@mui/material/Collapse';
 import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 import { useSpring, animated } from 'react-spring';
 import { TransitionProps } from '@mui/material/transitions';
-
 
 
 function TransitionComponent(props: TransitionProps) {
@@ -43,20 +42,20 @@ function TransitionComponent(props: TransitionProps) {
 
 
 
-const StyledTreeItem = styled((props: TreeItemProps) => (
-    <TreeItem {...props} TransitionComponent={TransitionComponent} />
-))(({ theme }) => ({
-    [`& .${treeItemClasses.iconContainer}`]: {
-        '& .close': {
-            opacity: 0.3,
-        },
-    },
-    [`& .${treeItemClasses.group}`]: {
-        marginLeft: 15,
-        paddingLeft: 18,
-        borderLeft: `1px dashed ${alpha(theme.palette.text.primary, 0.4)}`,
-    },
-}));
+// const StyledTreeItem = styled((props: TreeItemProps) => (
+//     <TreeItem {...props} TransitionComponent={TransitionComponent} />
+// ))(({ theme }) => ({
+//     [`& .${treeItemClasses.iconContainer}`]: {
+//         '& .close': {
+//             opacity: 0.3,
+//         },
+//     },
+//     [`& .${treeItemClasses.group}`]: {
+//         marginLeft: 15,
+//         paddingLeft: 18,
+//         borderLeft: `1px dashed ${alpha(theme.palette.text.primary, 0.4)}`,
+//     },
+// }));
 
 type FormRef = {
     formSubmit: () => void
@@ -123,15 +122,15 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
     }
 
 
-    const genTree = (list: IMenu[]) => {
-        if (!list || !Array.isArray(list)) {
-            return null
-        }
-        const tree = (list: IMenu[]) => list.map(x => <StyledTreeItem nodeId={String(x.id)} label={x.text} key={x.id} >
-            {Array.isArray(x.children) ? tree(x.children) : null}
-        </StyledTreeItem>)
-        return tree(list)
-    }
+    // const genTree = (list: IMenu[]) => {
+    //     if (!list || !Array.isArray(list)) {
+    //         return null
+    //     }
+    //     const tree = (list: IMenu[]) => list.map(x => <StyledTreeItem nodeId={String(x.id)} label={x.text} key={x.id} >
+    //         {Array.isArray(x.children) ? tree(x.children) : null}
+    //     </StyledTreeItem>)
+    //     return tree(list)
+    // }
 
     return (
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -163,7 +162,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                     <Grid item xs={12} sm={6}>
                         <FormControl>
                             <FormLabel id="gender-label">Parent</FormLabel>
-                            <TreeView
+                            {/* <TreeView
                                 aria-label="customized"
                                 defaultExpanded={['1']}
                                 defaultCollapseIcon={<FolderOpenIcon />}
@@ -173,7 +172,7 @@ const AddMenu: React.FC<IPageProps> = React.forwardRef((props, ref) => {
                                 onNodeSelect={chooseTreeItem}
                             >
                                 {genTree(list)}
-                            </TreeView>
+                            </TreeView> */}
                         </FormControl>
 
                     </Grid>
