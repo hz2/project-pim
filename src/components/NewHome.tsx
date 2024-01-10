@@ -1,19 +1,17 @@
 import { Box, Container, Link, SvgIcon, Typography } from "@mui/material";
 import Footer from "./Footer";
 import GitHubIcon from '@mui/icons-material/GitHub';
-import TelegramIcon from '@mui/icons-material/Telegram';
-import Public from '@mui/icons-material/Public';
-import Share from '@mui/icons-material/Share';
 import { Stack } from '@mui/material';
 import styles from './NewHome.module.css';
-import { footerItemList, shapeItemList } from "./NewHomeIcons";
+import { bsky, footerItemList, mstd, shapeItemList, tg } from "./NewHomeIcons";
 import { useEffect, useState } from "react";
 
 const Linkmap = [
     { name: 'GitHub', icon: GitHubIcon },
-    { name: 'Mastodon', rel: "me", icon: Share, link: "https://mastodon.social/@fzz" },
-    { name: 'Mastodon', rel: "me", icon: Public, link: "https://mastodon.online/@hz1d", hidden: true },
-    { name: 'Telegram', icon: TelegramIcon, link: "https://t.me/+Rndvi8-IksNhYTQx" },
+    { name: 'Bluesky', svg: bsky, link: "https://bsky.app/profile/hx.fyi" },
+    { name: 'Mastodon', rel: "me", svg: mstd, link: "https://mastodon.social/@fzz" },
+    { name: 'Mastodon', rel: "me", svg: mstd, link: "https://mastodon.online/@hz1d", hidden: true },
+    { name: 'Telegram', svg: tg, link: "https://t.me/+f-7nAo1S8GpkYzQ5" },
 ]
 
 interface IRow {
@@ -145,7 +143,10 @@ const NewHome = () => {
                                 target='_blank'
                                 className={x.hidden ? styles.contactItemBtnHidden : styles.contactItemBtn}
                             >
-                                <x.icon />
+                                {x.svg ? <SvgIcon sx={{
+                                    width: ".9em",
+                                    height: ".9em",
+                                }}>{x.svg}</SvgIcon> : <x.icon />}
                                 <Box component="span" sx={{ m: .8 }}>{x.name}</Box>
                             </Link>)
                     }  </Stack>
