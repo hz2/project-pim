@@ -235,7 +235,7 @@ export default function Layout({ children }: LayoutProps) {
                         }}
                     >
                         <div></div>
-                        <Link href="/front" color="primary">
+                        <Link href="/" color="primary">
                             <Button variant="contained" size="large">
                                 <HomeIcon />
                                 &nbsp;&nbsp; front

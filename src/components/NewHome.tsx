@@ -1,19 +1,17 @@
-import { Box, Container, Link, SvgIcon, Typography } from "@mui/material";
+import { Box, Button, Container, Link, SvgIcon, Typography } from "@mui/material";
 import Footer from "./Footer";
 import GitHubIcon from '@mui/icons-material/GitHub';
-import TelegramIcon from '@mui/icons-material/Telegram';
-import Public from '@mui/icons-material/Public';
-import Share from '@mui/icons-material/Share';
 import { Stack } from '@mui/material';
 import styles from './NewHome.module.css';
-import { footerItemList, shapeItemList } from "./NewHomeIcons";
+import { bsky, footerItemList, mstd, shapeItemList, tg } from "./NewHomeIcons";
 import { useEffect, useState } from "react";
 
 const Linkmap = [
     { name: 'GitHub', icon: GitHubIcon },
-    { name: 'Mastodon', rel: "me", icon: Share, link: "https://mastodon.social/@fzz" },
-    { name: 'Mastodon', rel: "me", icon: Public, link: "https://mastodon.online/@hz1d", hidden: true },
-    { name: 'Telegram', icon: TelegramIcon, link: "https://t.me/+Rndvi8-IksNhYTQx" },
+    { name: 'Bluesky', svg: bsky, link: "https://bsky.app/profile/hx.fyi" },
+    { name: 'Mastodon', rel: "me", svg: mstd, link: "https://mastodon.social/@fzz" },
+    { name: 'Mastodon', rel: "me", svg: mstd, link: "https://mastodon.online/@hz1d", hidden: true },
+    { name: 'Telegram', svg: tg, link: "https://t.me/+f-7nAo1S8GpkYzQ5" },
 ]
 
 interface IRow {
@@ -43,11 +41,11 @@ const NewHome = () => {
     const [imgList, _setImgList] = useState<IRow[]>([
         {
             title: 'Craft Sophisticated  Fusion',
-            img: 'https://m.0xc8.com/main/meta/JGf4udXgHGhkTRenAP8OdRIV34.jpg'
+            img: 'https://blob.respok.com/main/meta/JGf4udXgHGhkTRenAP8OdRIV34.jpg'
         },
         {
             title: 'Engage Your Mind and Soul',
-            img: 'https://m.0xc8.com/main/meta/ctvsrEU2pO3iNdLPaPnHcOCfJrE.webp'
+            img: 'https://blob.respok.com/main/meta/ctvsrEU2pO3iNdLPaPnHcOCfJrE.webp'
         }
     ])
     // JscafcN4Um9htcM2KkY6p29Cw4.jpg
@@ -70,9 +68,15 @@ const NewHome = () => {
 
     // }
 
+    const [hasToken, setHasToken] = useState(false)
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('access_token')
+        setHasToken(Boolean(token))
+    }, [])
     return (
         <div >
-            <Box sx={{ backgroundImage: "url(https://m.0xc8.com/main/meta/BCPFd4Zjg8M2cBxc00XKr34icXQ.webp)", backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '95vh', mixBlendMode: 'luminosity', py: '40px', }}>
+            <Box sx={{ backgroundImage: "url(https://blob.respok.com/main/meta/BCPFd4Zjg8M2cBxc00XKr34icXQ.webp)", backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '95vh', mixBlendMode: 'luminosity', py: '40px', }}>
                 <Box sx={{ fontSize: 48, fontWeight: 700, color: '#fff', textAlign: 'center', p: "20px" }}>
                     <p>Innovation demands bravery. Risk to challenge.</p>
                     <p>Revolutionize The Digital Voyage.</p>
@@ -145,7 +149,10 @@ const NewHome = () => {
                                 target='_blank'
                                 className={x.hidden ? styles.contactItemBtnHidden : styles.contactItemBtn}
                             >
-                                <x.icon />
+                                {x.svg ? <SvgIcon sx={{
+                                    width: ".9em",
+                                    height: ".9em",
+                                }}>{x.svg}</SvgIcon> : <x.icon />}
                                 <Box component="span" sx={{ m: .8 }}>{x.name}</Box>
                             </Link>)
                     }  </Stack>
@@ -163,6 +170,19 @@ const NewHome = () => {
                     title="Loosen up"
                     description="The unexamined life is not worth living"
                 />
+                {
+                    hasToken ?
+                        <Link href="/dashboard" color="secondary">
+                            <Button variant="outlined" size="small">
+                                Admin
+                            </Button>
+                        </Link> :
+                        <Link href="/sign-in" color="secondary">
+                            <Button variant="outlined" size="small">
+                                Sign in
+                            </Button>
+                        </Link>
+                }
             </Container>
         </div >
     );

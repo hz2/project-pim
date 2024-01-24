@@ -81,7 +81,7 @@ export default function Album() {
                       // 16:9
                       pt: '56.25%',
                     }}
-                    image="https://m.0xc8.com/main/sample/dddepth-206.jpg"
+                    image="https://blob.respok.com/main/sample/dddepth-206.jpg"
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>

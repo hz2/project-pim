@@ -31,7 +31,7 @@ const mainFeaturedPost = {
   title: 'Title of a longer featured blog post',
   description:
     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-  image: 'https://m.0xc8.com/main/sample/dddepth-007.jpg',
+  image: 'https://blob.respok.com/main/sample/dddepth-007.jpg',
   imageText: 'main image description',
   linkText: 'Continue reading…',
 };
@@ -55,8 +55,8 @@ const sidebar = {
   ],
   links: [
     { title: 'GitLab Repo', url: 'https://git.zh.rs/' },
-    { title: 'Rancher', url: 'https://c.0xc8.com/' },
-    { title: 'Drone CI', url: 'https://drone.0xc8.com' }
+    { title: 'Rancher', url: 'https://c.respok.com/' },
+    { title: 'Drone CI', url: 'https://drone.respok.com' }
   ],
 };
 
@@ -85,7 +85,7 @@ const featuredPosts: IPost[] = [
     updated: 'Nov 12',
     content:
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://m.0xc8.com/main/sample/dddepth-351.jpg',
+    image: 'https://blob.respok.com/main/sample/dddepth-351.jpg',
     imageLabel: 'Image Text',
   },
   {
@@ -93,7 +93,7 @@ const featuredPosts: IPost[] = [
     updated: 'Nov 11',
     content:
       'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://m.0xc8.com/main/sample/dddepth-137.jpg',
+    image: 'https://blob.respok.com/main/sample/dddepth-137.jpg',
     imageLabel: 'Image Text',
   },
 ];
