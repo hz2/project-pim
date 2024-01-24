@@ -1,4 +1,4 @@
-import { Box, Container, Link, SvgIcon, Typography } from "@mui/material";
+import { Box, Button, Container, Link, SvgIcon, Typography } from "@mui/material";
 import Footer from "./Footer";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Stack } from '@mui/material';
@@ -41,11 +41,11 @@ const NewHome = () => {
     const [imgList, _setImgList] = useState<IRow[]>([
         {
             title: 'Craft Sophisticated  Fusion',
-            img: 'https://m.0xc8.com/main/meta/JGf4udXgHGhkTRenAP8OdRIV34.jpg'
+            img: 'https://blob.respok.com/main/meta/JGf4udXgHGhkTRenAP8OdRIV34.jpg'
         },
         {
             title: 'Engage Your Mind and Soul',
-            img: 'https://m.0xc8.com/main/meta/ctvsrEU2pO3iNdLPaPnHcOCfJrE.webp'
+            img: 'https://blob.respok.com/main/meta/ctvsrEU2pO3iNdLPaPnHcOCfJrE.webp'
         }
     ])
     // JscafcN4Um9htcM2KkY6p29Cw4.jpg
@@ -68,9 +68,15 @@ const NewHome = () => {
 
     // }
 
+    const [hasToken, setHasToken] = useState(false)
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('access_token')
+        setHasToken(Boolean(token))
+    }, [])
     return (
         <div >
-            <Box sx={{ backgroundImage: "url(https://m.0xc8.com/main/meta/BCPFd4Zjg8M2cBxc00XKr34icXQ.webp)", backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '95vh', mixBlendMode: 'luminosity', py: '40px', }}>
+            <Box sx={{ backgroundImage: "url(https://blob.respok.com/main/meta/BCPFd4Zjg8M2cBxc00XKr34icXQ.webp)", backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '95vh', mixBlendMode: 'luminosity', py: '40px', }}>
                 <Box sx={{ fontSize: 48, fontWeight: 700, color: '#fff', textAlign: 'center', p: "20px" }}>
                     <p>Innovation demands bravery. Risk to challenge.</p>
                     <p>Revolutionize The Digital Voyage.</p>
@@ -164,6 +170,19 @@ const NewHome = () => {
                     title="Loosen up"
                     description="The unexamined life is not worth living"
                 />
+                {
+                    hasToken ?
+                        <Link href="/dashboard" color="secondary">
+                            <Button variant="outlined" size="small">
+                                Admin
+                            </Button>
+                        </Link> :
+                        <Link href="/sign-in" color="secondary">
+                            <Button variant="outlined" size="small">
+                                Sign in
+                            </Button>
+                        </Link>
+                }
             </Container>
         </div >
     );

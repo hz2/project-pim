@@ -144,8 +144,8 @@ export const FileUpload: React.FC<UploaderProps> = ({
                                 alt="file upload"
                                 objectFit='cover'
                                 src={imageUrl}
-                                height={Number(height)}
-                                width={Number(width)}
+                                height={200}
+                                width={200}
                             />
                         </Box>
                     )}

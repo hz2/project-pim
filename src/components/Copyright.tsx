@@ -8,7 +8,7 @@ export default function Copyright(props: any) {
       <span>© 2022-present</span>
       <span> </span>
       <MuiLink color="inherit" href="/">
-        0xc8.com
+        respok.com
       </MuiLink>
       <span> / pim system</span>
     </Typography>
